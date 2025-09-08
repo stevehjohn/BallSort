@@ -58,14 +58,14 @@ public class Board
             throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
-        if (IsFull(target))
-        {
-            throw new InvalidMoveException($"Target column {target} is full.");
-        }
-
         if (target >= _gridWidth)
         {
             throw new InvalidMoveException($"Target column {target} is out of bounds");
+        }
+
+        if (IsFull(target))
+        {
+            throw new InvalidMoveException($"Target column {target} is full.");
         }
 
         var targetBall = GetTopmostBall(target);
