@@ -146,6 +146,18 @@ public class BoardTests
         Assert.Equal(expectedLength, board.TopRunLength(column));
     }
 
+    [Theory]
+    [InlineData(3, 0)]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    [InlineData(0, 3)]
+    public void CapacityReturnsCorrectValue(int expectedCapacity, int column)
+    {
+        var board = BoardFromLayout(4, 3, "1,1,1,1,1,0,1,0,0,0,0,0");
+        
+        Assert.Equal(expectedCapacity, board.TopRunLength(column));
+    }
+
     private static Board BoardFromLayout(int width, int height, string layout)
     {
         var puzzle = new Puzzle

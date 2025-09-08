@@ -186,9 +186,14 @@ public class Board
 
     public bool IsFull(int column)
     {
+        return Capacity(column) == 0;
+    }
+
+    public int Capacity(int column)
+    {
         Guard(column);
 
-        return _columns[column].Count >= _gridHeight;
+        return _gridHeight - _columns[column].Count;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
