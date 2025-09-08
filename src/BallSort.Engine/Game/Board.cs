@@ -60,8 +60,6 @@ public class Board
             throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
-        Guard(target,  "Target column {column} is out of bounds.");
-
         if (IsFull(target))
         {
             throw new InvalidMoveException($"Target column {target} is full.");
