@@ -62,7 +62,7 @@ public class Board
 
         Guard(target,  "Target column {column} is out of bounds.");
 
-        if (IsFull(target))
+        if (_gridHeight - _columns[target].Count == 0)
         {
             throw new InvalidMoveException($"Target column {target} is full.");
         }
