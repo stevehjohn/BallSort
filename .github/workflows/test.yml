@@ -17,6 +17,9 @@ jobs:
     concurrency:
       group: "pages"
       cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
       
     steps:
     
@@ -62,4 +65,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         if: ${{ github.ref == 'refs/heads/master' }}
+        id: deployment
         uses: actions/deploy-pages@v4
+  
