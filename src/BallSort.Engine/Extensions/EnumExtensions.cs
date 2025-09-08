@@ -20,6 +20,6 @@ public static class EnumExtensions
             result.Append([text[i]]);
         }
 
-        return text;
+        return result.ToString();
     }
 }
