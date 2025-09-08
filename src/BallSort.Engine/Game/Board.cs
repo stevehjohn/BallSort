@@ -194,7 +194,7 @@ public class Board
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void Guard(int column, string messageTemplate = null)
     {
-        if ((uint) column >= _gridWidth)
+        if ((uint) column >= (uint) _gridWidth)
         {
             if (messageTemplate == null)
             {
