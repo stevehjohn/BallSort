@@ -56,7 +56,7 @@ public class Board
         }
 
         var sourceBall = Top(source);
-        
+
         if (sourceBall == Colour.Empty)
         {
             throw new InvalidMoveException($"Source column {source} contains no balls.");
@@ -76,9 +76,10 @@ public class Board
 
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException(
+                $"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
         }
-        
+
         _columns[target].Push(_columns[source].Pop());
     }
 
@@ -109,14 +110,14 @@ public class Board
         var data = new Colour[_gridHeight];
 
         var i = _columns[column].Count - 1;
-        
+
         foreach (var item in _columns[column])
         {
             data[i] = item;
 
             i--;
         }
-        
+
         return data;
     }
 
@@ -133,7 +134,7 @@ public class Board
         }
 
         var colour = _columns[column].Peek();
-        
+
         foreach (var item in _columns[column])
         {
             if (item != colour)
@@ -163,6 +164,34 @@ public class Board
         }
 
         return _columns[column].Peek();
+    }
+
+    public int TopRunLength(int column)
+    {
+        var stack = _columns[column];
+
+        if (! stack.TryPeek(out var colour))
+        {
+            return 0;
+        }
+
+        var length = 1;
+
+        var enumerator = stack.GetEnumerator();
+
+        enumerator.MoveNext();
+
+        while (enumerator.MoveNext())
+        {
+            if (enumerator.Current != colour)
+            {
+                break;
+            }
+
+            length++;
+        }
+
+        return length;
     }
 
     private bool IsFull(int column)

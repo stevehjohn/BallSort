@@ -122,6 +122,18 @@ public class BoardTests
         Assert.Equal(expectedColour, board.Top(column));
     }
 
+    [Theory]
+    [InlineData(3, 0)]
+    [InlineData(2, 1)]
+    [InlineData(1, 2)]
+    [InlineData(0, 3)]
+    public void TopRunLengthReturnsCorrectValue(int expectedLength, int column)
+    {
+        var board = BoardFromLayout(4, 3, "1,1,1,2,3,3,4,4,5,0,0,0");
+        
+        Assert.Equal(expectedLength, board.TopRunLength(column));
+    }
+
     private static Board BoardFromLayout(int width, int height, string layout)
     {
         var puzzle = new Puzzle
