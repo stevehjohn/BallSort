@@ -2,6 +2,8 @@ namespace BallSort.Engine.Models;
 
 public class Board
 {
+    
+    
     public Board(Puzzle puzzle)
     {
         
