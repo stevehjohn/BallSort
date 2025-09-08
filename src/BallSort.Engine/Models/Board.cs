@@ -12,11 +12,11 @@ public class Board
     private int _gridHeight;
 
     private int _topRow;
-    
+
     private Board()
     {
     }
-    
+
     public Board(Puzzle puzzle)
     {
         _columns = new Stack<Colour>[puzzle.GridWidth];
@@ -28,15 +28,15 @@ public class Board
         _gridHeight = puzzle.GridHeight;
 
         _topRow = _gridWidth - 1;
-        
+
         for (var column = 0; column < _gridWidth; column++)
         {
-            _columns[column] = new Stack<Colour>();
+            _columns[column] = new Stack<Colour>(_gridHeight);
 
             for (var row = 0; row < _gridHeight; row++)
             {
                 _columns[column].Push((Colour) puzzle.Data.Layout[index]);
-                
+
                 index++;
             }
         }
@@ -45,7 +45,7 @@ public class Board
     public void Move(int source, int target)
     {
         var sourceBall = GetTopmostBall(source);
-        
+
         if (sourceBall == Colour.Empty)
         {
             throw new InvalidMoveException($"Column {source} contains no balls.");
@@ -53,13 +53,15 @@ public class Board
 
         if (IsFull(target))
         {
-            throw new InvalidMoveException($"Column {target} is full.");        }
+            throw new InvalidMoveException($"Column {target} is full.");
+        }
 
         var targetBall = GetTopmostBall(target);
-        
+
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException(
+                $"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
         }
     }
 
@@ -77,9 +79,7 @@ public class Board
         {
             for (var row = 0; row < _gridHeight; row++)
             {
-                board._columns[column] = new Stack<Colour>();
-                
-                board._columns[column][row] = _columns[column][row];
+                board._columns[column] = new Stack<Colour>(_columns[column].Reverse());
             }
         }
 
@@ -88,19 +88,16 @@ public class Board
 
     private Colour GetTopmostBall(int column)
     {
-        for (var i = _topRow; i >= 0; i--)
+        if (_columns[column].Count == 0)
         {
-            if (_columns[column][i] != Colour.Empty)
-            {
-                return _columns[column][i];
-            }
+            return Colour.Empty;
         }
 
-        return Colour.Empty;
+        return _columns[column].Peek();
     }
 
     private bool IsFull(int column)
     {
-        return _columns[column][_topRow] != Colour.Empty;
+        return _columns[column].Count == _gridHeight;
     }
 }
