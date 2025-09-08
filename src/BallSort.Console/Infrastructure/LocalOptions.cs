@@ -3,7 +3,7 @@
 using CommandLine;
 using JetBrains.Annotations;
 
-namespace BallSort.Engine.Infrastructure;
+namespace BallSort.Console.Infrastructure;
 
 [UsedImplicitly]
 [Verb("local", HelpText = "Run a puzzle from the local file system.")]

@@ -1,8 +1,16 @@
-﻿namespace BallSort.Console;
+﻿using BallSort.Console.Infrastructure;
+using BallSort.Console.Runners;
+using CommandLine;
+
+namespace BallSort.Console;
 
 public static class EntryPoint
 {
-    public static void Main()
+    public static void Main(string[] arguments)
     {
+        var parser = new Parser(settings => { settings.CaseInsensitiveEnumValues = true; });
+
+        parser.ParseArguments<LocalOptions>(arguments)
+            .WithParsed<LocalOptions>(options => new Local().Run(options));
     }
 }
