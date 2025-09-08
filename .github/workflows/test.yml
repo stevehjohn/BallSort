@@ -13,6 +13,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+
     - name: Run Tests
       run: |
         cd src
@@ -20,7 +21,11 @@ jobs:
         dotnet test -c Release \
           --logger "console;verbosity=detailed" \
           --logger "trx;LogFileName=test_results.trx" \
-          /p:CollectCoverage=true \
-          /p:CoverletOutput=TestResults/Coverage/coverage \
-          /p:CoverletOutputFormat=cobertura \
-          /p:Exclude="[*.Tests]*"
+          --collect:"XPlat Code Coverage"
+        
+    - name: Generate coverage report
+      uses: danielpalme/ReportGenerator-GitHub-Action@v5
+      with:
+        reports: "src/**/TestResults/*/coverage.cobertura.xml"
+        targetdir: "coveragereport"
+        reporttypes: "HtmlInline;MarkdownSummary;Badges"
