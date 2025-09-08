@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallSort.Engine", "BallSort.Engine\BallSort.Engine.csproj", "{B191E0F1-2CE4-44B7-A0AE-88597726EDBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallSort.Engine.Tests", "BallSort.Engine.Tests\BallSort.Engine.Tests.csproj", "{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{B191E0F1-2CE4-44B7-A0AE-88597726EDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B191E0F1-2CE4-44B7-A0AE-88597726EDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B191E0F1-2CE4-44B7-A0AE-88597726EDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

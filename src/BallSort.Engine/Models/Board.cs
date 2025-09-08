@@ -34,7 +34,11 @@ public class Board
             }
         }
     }
-    
+
+    public void Move(int source, int target)
+    {
+    }
+
     public Board Clone()
     {
         var board = new Board
