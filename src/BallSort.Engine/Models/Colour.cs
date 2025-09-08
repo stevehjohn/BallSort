@@ -1,7 +1,10 @@
+// ReSharper disable UnusedMember.Global
+
 namespace BallSort.Engine.Models;
 
 public enum Colour
 {
+    Empty = 0,
     Red = 1,
     Green = 2,
     Yellow = 3,

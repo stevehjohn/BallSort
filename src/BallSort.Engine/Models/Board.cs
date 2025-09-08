@@ -4,7 +4,7 @@ namespace BallSort.Engine.Models;
 
 public class Board
 {
-    private int[][] _columns;
+    private Colour[][] _columns;
 
     private int _gridWidth;
 
@@ -18,7 +18,7 @@ public class Board
     
     public Board(Puzzle puzzle)
     {
-        _columns = new int[puzzle.GridWidth][];
+        _columns = new Colour[puzzle.GridWidth][];
 
         var index = 0;
 
@@ -30,11 +30,11 @@ public class Board
         
         for (var column = 0; column < _gridWidth; column++)
         {
-            _columns[column] = new int[_gridHeight];
+            _columns[column] = new Colour[_gridHeight];
 
             for (var row = 0; row < _gridHeight; row++)
             {
-                _columns[column][row] = puzzle.Data.Layout[index];
+                _columns[column][row] = (Colour) puzzle.Data.Layout[index];
                 
                 index++;
             }
@@ -58,7 +58,7 @@ public class Board
     {
         var board = new Board
         {
-            _columns = new int[_gridWidth][],
+            _columns = new Colour[_gridWidth][],
             _gridWidth = _gridWidth,
             _gridHeight = _gridHeight,
             _topRow = _topRow
@@ -68,6 +68,8 @@ public class Board
         {
             for (var row = 0; row < _gridHeight; row++)
             {
+                board._columns[column] = new Colour[_gridHeight];
+                
                 board._columns[column][row] = _columns[column][row];
             }
         }
