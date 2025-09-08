@@ -12,8 +12,6 @@ public class Board
 
     private int _gridHeight;
 
-    private int _topRow;
-
     private Board()
     {
     }
@@ -28,15 +26,18 @@ public class Board
 
         _gridHeight = puzzle.GridHeight;
 
-        _topRow = _gridWidth - 1;
-
         for (var column = 0; column < _gridWidth; column++)
         {
             _columns[column] = new Stack<Colour>(_gridHeight);
 
             for (var row = 0; row < _gridHeight; row++)
             {
-                _columns[column].Push((Colour) puzzle.Data.Layout[index]);
+                var ball = (Colour) puzzle.Data.Layout[index];
+
+                if (ball != Colour.Empty)
+                {
+                    _columns[column].Push(ball);
+                }
 
                 index++;
             }
@@ -61,8 +62,10 @@ public class Board
 
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
         }
+        
+        _columns[target].Push(_columns[source].Pop());
     }
 
     public Board Clone()
@@ -71,16 +74,12 @@ public class Board
         {
             _columns = new Stack<Colour>[_gridWidth],
             _gridWidth = _gridWidth,
-            _gridHeight = _gridHeight,
-            _topRow = _topRow
+            _gridHeight = _gridHeight
         };
 
         for (var column = 0; column < _columns.Length; column++)
         {
-            for (var row = 0; row < _gridHeight; row++)
-            {
-                board._columns[column] = new Stack<Colour>(_columns[column].Reverse());
-            }
+            board._columns[column] = new Stack<Colour>(_columns[column].Reverse());
         }
 
         return board;
