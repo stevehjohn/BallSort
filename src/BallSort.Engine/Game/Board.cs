@@ -55,7 +55,7 @@ public class Board
             throw new OutOfBoundsException($"Source column {source} is out of bounds.");
         }
 
-        var sourceBall = GetTopmostBall(source);
+        var sourceBall = Top(source);
         
         if (sourceBall == Colour.Empty)
         {
@@ -72,7 +72,7 @@ public class Board
             throw new InvalidMoveException($"Target column {target} is full.");
         }
 
-        var targetBall = GetTopmostBall(target);
+        var targetBall = Top(target);
 
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
@@ -155,7 +155,7 @@ public class Board
         return _columns[column].Count == 0;
     }
 
-    private Colour GetTopmostBall(int column)
+    public Colour Top(int column)
     {
         if (_columns[column].Count == 0)
         {

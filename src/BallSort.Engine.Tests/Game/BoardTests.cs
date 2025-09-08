@@ -110,6 +110,18 @@ public class BoardTests
         Assert.Equal("Yellow,Empty,Empty", string.Join(',', clone.GetColumn(2)));
     }
 
+    [Theory]
+    [InlineData(Colour.Yellow, 0)]
+    [InlineData(Colour.Orange, 1)]
+    [InlineData(Colour.Empty, 2)]
+    [InlineData(Colour.Empty, 3)]
+    public void TopReturnsCorrectColour(Colour expectedColour, int column)
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+        
+        Assert.Equal(expectedColour, board.Top(column));
+    }
+
     private static Board BoardFromLayout(int width, int height, string layout)
     {
         var puzzle = new Puzzle
