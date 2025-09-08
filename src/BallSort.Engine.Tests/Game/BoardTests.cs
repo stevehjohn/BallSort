@@ -9,10 +9,10 @@ public class BoardTests
     [Theory]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 4, 0, "Source column 4 is out of bounds.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 4, "Target column 4 is out of bounds.")]
-    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 3, 0, "Source column 4 is contains no balls.")]
+    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 3, 0, "Source column 4 contains no balls.")]
     public void MoveThrowsForInvalidMoves(string layout, int source, int target, string expectedMessage)
     {
-        var board = BoardFromLayout(3, 4, layout);
+        var board = BoardFromLayout(4, 3, layout);
 
         try
         {
