@@ -1,4 +1,5 @@
 using BallSort.Engine.Exceptions;
+using BallSort.Engine.Extensions;
 
 namespace BallSort.Engine.Models;
 
@@ -43,14 +44,23 @@ public class Board
 
     public void Move(int source, int target)
     {
-        if (_columns[source][0] == 0)
+        var sourceBall = GetTopmostBall(source);
+        
+        if (sourceBall == Colour.Empty)
         {
             throw new InvalidMoveException($"Column {source} contains no balls.");
         }
 
-        if (_columns[target][_topRow] != 0)
+        var targetBall = GetTopmostBall(target);
+
+        if (targetBall != Colour.Empty)
         {
             throw new InvalidMoveException($"Column {source} is full.");
+        }
+        
+        if (sourceBall != targetBall && targetBall != Colour.Empty)
+        {
+            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
         }
     }
 
