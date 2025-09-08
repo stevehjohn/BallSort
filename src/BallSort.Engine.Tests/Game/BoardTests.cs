@@ -112,7 +112,7 @@ public class BoardTests
 
     [Theory]
     [InlineData(Colour.Yellow, 0)]
-    [InlineData(Colour.Orange, 1)]
+    [InlineData(Colour.DarkPurple, 1)]
     [InlineData(Colour.Empty, 2)]
     [InlineData(Colour.Empty, 3)]
     public void TopReturnsCorrectColour(Colour expectedColour, int column)
