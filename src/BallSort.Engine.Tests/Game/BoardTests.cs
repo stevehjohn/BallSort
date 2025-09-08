@@ -7,7 +7,8 @@ namespace BallSort.Engine.Tests.Game;
 public class BoardTests
 {
     [Theory]
-    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 4, 0, "")]
+    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 4, 0, "Source column 4 is out of bounds")]
+    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 4, "Target column 4 is out of bounds")]
     public void MoveThrowsForInvalidMoves(string layout, int source, int target, string expectedMessage)
     {
         var board = BoardFromLayout(3, 4, layout);

@@ -48,24 +48,24 @@ public class Board
     {
         if (source >= _gridWidth)
         {
-            throw new InvalidMoveException($"Column {source} is out of bounds");
+            throw new InvalidMoveException($"Source column {source} is out of bounds");
         }
 
         var sourceBall = GetTopmostBall(source);
         
         if (sourceBall == Colour.Empty)
         {
-            throw new InvalidMoveException($"Column {source} contains no balls.");
+            throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
         if (IsFull(target))
         {
-            throw new InvalidMoveException($"Column {target} is full.");
+            throw new InvalidMoveException($"Target column {target} is full.");
         }
 
         if (target >= _gridWidth)
         {
-            throw new InvalidMoveException($"Column {target} is out of bounds");
+            throw new InvalidMoveException($"Target column {target} is out of bounds");
         }
 
         var targetBall = GetTopmostBall(target);
