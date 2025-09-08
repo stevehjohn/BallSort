@@ -76,4 +76,17 @@ public class Board
 
         return board;
     }
+
+    private Colour GetTopmostBall(int column)
+    {
+        for (var i = _topRow; i >= 0; i--)
+        {
+            if (_columns[column][i] != Colour.Empty)
+            {
+                return _columns[column][i];
+            }
+        }
+
+        return Colour.Empty;
+    }
 }
