@@ -11,6 +11,7 @@ public class BoardTests
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 4, "Target column 4 is out of bounds.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 3, 0, "Source column 3 contains no balls.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 1, "Target column 1 is full.")]
+    [InlineData("1,2,3,1,4,0,0,0,0,0,0,0", 0, 1, "Cannot move Yellow ball from column 0 onto Blue ball in column 1.")]
     public void MoveThrowsForInvalidMoves(string layout, int source, int target, string expectedMessage)
     {
         var board = BoardFromLayout(4, 3, layout);
@@ -22,7 +23,11 @@ public class BoardTests
         catch (Exception exception)
         {
             Assert.Equal(expectedMessage, exception.Message);
+            
+            return;
         }
+        
+        Assert.Null(expectedMessage);
     }
 
     private static Board BoardFromLayout(int width, int height, string layout)
