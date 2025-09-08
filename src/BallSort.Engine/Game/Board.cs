@@ -158,6 +158,11 @@ public class Board
 
     public Colour Top(int column)
     {
+        if ((uint) column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         if (_columns[column].Count == 0)
         {
             return Colour.Empty;
@@ -168,6 +173,11 @@ public class Board
 
     public int TopRunLength(int column)
     {
+        if ((uint) column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         var stack = _columns[column];
 
         if (! stack.TryPeek(out var colour))
@@ -194,8 +204,13 @@ public class Board
         return length;
     }
 
-    private bool IsFull(int column)
+    public bool IsFull(int column)
     {
+        if ((uint) column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         return _columns[column].Count >= _gridHeight;
     }
 }

@@ -123,6 +123,18 @@ public class BoardTests
     }
 
     [Theory]
+    [InlineData(true, 0)]
+    [InlineData(true, 1)]
+    [InlineData(false, 2)]
+    [InlineData(false, 3)]
+    public void IsFullReturnsCorrectValue(bool isFull, int column)
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+        
+        Assert.Equal(isFull, board.IsFull(column));
+    }
+
+    [Theory]
     [InlineData(3, 0)]
     [InlineData(2, 1)]
     [InlineData(1, 2)]
