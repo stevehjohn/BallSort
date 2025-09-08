@@ -1,3 +1,5 @@
+using BallSort.Engine.Exceptions;
+
 namespace BallSort.Engine.Models;
 
 public class Board
@@ -7,6 +9,8 @@ public class Board
     private int _gridWidth;
 
     private int _gridHeight;
+
+    private int _topRow;
     
     private Board()
     {
@@ -21,6 +25,8 @@ public class Board
         _gridWidth = puzzle.GridWidth;
 
         _gridHeight = puzzle.GridHeight;
+
+        _topRow = _gridWidth - 1;
         
         for (var column = 0; column < _gridWidth; column++)
         {
@@ -37,6 +43,15 @@ public class Board
 
     public void Move(int source, int target)
     {
+        if (_columns[source][0] == 0)
+        {
+            throw new InvalidMoveException($"Column {source} contains no balls.");
+        }
+
+        if (_columns[target][_topRow] != 0)
+        {
+            throw new InvalidMoveException($"Column {source} is full.");
+        }
     }
 
     public Board Clone()
@@ -45,7 +60,8 @@ public class Board
         {
             _columns = new int[_gridWidth][],
             _gridWidth = _gridWidth,
-            _gridHeight = _gridHeight
+            _gridHeight = _gridHeight,
+            _topRow = _topRow
         };
 
         for (var column = 0; column < _columns.Length; column++)
