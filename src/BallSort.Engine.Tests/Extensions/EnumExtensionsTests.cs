@@ -1,5 +1,5 @@
 using BallSort.Engine.Extensions;
-using BallSort.Engine.Models;
+using BallSort.Engine.Game;
 using Xunit;
 
 namespace BallSort.Engine.Tests.Extensions;

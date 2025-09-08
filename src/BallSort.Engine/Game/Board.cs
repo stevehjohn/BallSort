@@ -1,7 +1,8 @@
 using BallSort.Engine.Exceptions;
 using BallSort.Engine.Extensions;
+using BallSort.Engine.Models;
 
-namespace BallSort.Engine.Models;
+namespace BallSort.Engine.Game;
 
 public class Board
 {

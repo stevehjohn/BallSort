@@ -1,6 +1,6 @@
 // ReSharper disable UnusedMember.Global
 
-namespace BallSort.Engine.Models;
+namespace BallSort.Engine.Game;
 
 public enum Colour
 {
