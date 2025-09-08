@@ -39,13 +39,11 @@ public class Board
     {
         var board = new Board
         {
-            _columns = new int[_gridWidth][]
+            _columns = new int[_gridWidth][],
+            _gridWidth = _gridWidth,
+            _gridHeight = _gridHeight
         };
 
-        board._gridWidth = _gridWidth;
-
-        board._gridHeight = _gridHeight;
-        
         for (var column = 0; column < _columns.Length; column++)
         {
             for (var row = 0; row < _gridHeight; row++)
