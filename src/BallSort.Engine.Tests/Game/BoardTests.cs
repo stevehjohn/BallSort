@@ -31,6 +31,17 @@ public class BoardTests
         Assert.Null(expectedMessage);
     }
 
+    [Theory]
+    [InlineData("1,2,3,5,6,7,0,0,0,0,0,0", 0, "Red,Green,Yellow")]
+    [InlineData("1,2,3,5,6,7,0,0,0,0,0,0", 2, "Empty,Empty,Empty")]
+    public void GetColumnReturnsCorrectData(string layout, int column, string expected)
+    {
+        var board = BoardFromLayout(4, 3, layout);
+        
+        Assert.Equal(expected, string.Join(',', board.GetColumn(column)));
+
+    }
+
     private static Board BoardFromLayout(int width, int height, string layout)
     {
         var puzzle = new Puzzle
