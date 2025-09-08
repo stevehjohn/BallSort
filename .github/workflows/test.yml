@@ -1,46 +1,65 @@
 name: Run Unit Tests
 
-on: push
-
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Run Tests
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
-
-    - name: Run Tests
-      run: |
-        cd src
-        pwd
-        dotnet test -c Release \
-          --logger "console;verbosity=detailed" \
-          --logger "trx;LogFileName=test_results.trx" \
-          --collect:"XPlat Code Coverage"
-        
-    - name: Generate coverage report
-      uses: danielpalme/ReportGenerator-GitHub-Action@v5
-      with:
-        reports: "src/**/TestResults/*/coverage.cobertura.xml"
-        targetdir: "coveragereport"
-        reporttypes: "HtmlInline;MarkdownSummary;Badges"
-        tag: "${{ github.run_number }}"
-        
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage-html
-        path: coveragereport
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
       
-    - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: coveragereport
+    steps:
+    
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+  
+      - name: Run Tests
+        run: |
+          cd src
+          pwd
+          dotnet test -c Release \
+            --logger "console;verbosity=detailed" \
+            --logger "trx;LogFileName=test_results.trx" \
+            --collect:"XPlat Code Coverage"
+          
+      - name: Generate coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@v5
+        with:
+          reports: "src/**/TestResults/*/coverage.cobertura.xml"
+          targetdir: "coveragereport"
+          reporttypes: "HtmlInline;MarkdownSummary;Badges"
+          tag: "${{ github.run_number }}"
+          
+      - name: Publish coverage summary
+        run: |
+          echo "### Code Coverage" >> $GITHUB_STEP_SUMMARY
+          cat coveragereport/Summary.md >> $GITHUB_STEP_SUMMARY
+          
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: coveragereport
+        
+      - name: Upload Pages artifact
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: coveragereport
 
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: actions/deploy-pages@v4
