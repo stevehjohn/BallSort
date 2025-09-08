@@ -6,46 +6,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Run Tests
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: 9.0.x }
-
-      - name: Run Tests (with coverage + console log)
-        run: |
-          cd src
-          dotnet test -c Release \
-            --logger "console;verbosity=detailed" \
-            /p:CollectCoverage=true \
-            /p:CoverletOutput=TestResults/Coverage/coverage \
-            /p:CoverletOutputFormat=cobertura
-    
-      - name: List coverage files (debug)
-        run: |
-          find . -type f -name "coverage*.cobertura.xml" -print
-    
-      - name: Generate coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@v5
-        with:
-          reports: "**/TestResults/Coverage/coverage*.cobertura.xml"
-          targetdir: "coveragereport"
-          reporttypes: "HtmlInline;MarkdownSummary;Badges"
-    
-      - name: Publish coverage summary
-        run: |
-          echo "### Code Coverage" >> $GITHUB_STEP_SUMMARY
-          cat coveragereport/Summary.md >> $GITHUB_STEP_SUMMARY
-    
-      - name: Upload coverage HTML
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-html
-          path: coveragereport
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Run Tests
+      run: |
+        cd src
+        pwd
+        dotnet test -c Release \
+          --logger "console;verbosity=detailed" \
+          --logger "trx;LogFileName=test_results.trx" \
+          /p:CollectCoverage=true \
+          /p:CoverletOutput=TestResults/Coverage/coverage \
+          /p:CoverletOutputFormat=cobertura \
+          /p:Exclude="[*.Tests]*"
