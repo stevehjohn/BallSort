@@ -17,9 +17,9 @@ public class PuzzleManagerTests
         
         Assert.Equal(3, board.Height);
         
-        Assert.Equal("", string.Join(',', board.GetColumn(0)));
+        Assert.Equal("Red,Green,Yellow", string.Join(',', board.GetColumn(0)));
         
-        Assert.Equal("", string.Join(',', board.GetColumn(1)));
+        Assert.Equal("Blue,Orange,DarkPurple", string.Join(',', board.GetColumn(1)));
         
         Assert.Equal("Empty,Empty,Empty", string.Join(',', board.GetColumn(2)));
         
