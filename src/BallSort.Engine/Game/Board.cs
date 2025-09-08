@@ -48,7 +48,7 @@ public class Board
     {
         if (source >= _gridWidth)
         {
-            throw new InvalidMoveException($"Source column {source} is out of bounds.");
+            throw new OutOfBoundsException($"Source column {source} is out of bounds.");
         }
 
         var sourceBall = GetTopmostBall(source);
@@ -60,7 +60,7 @@ public class Board
 
         if (target >= _gridWidth)
         {
-            throw new InvalidMoveException($"Target column {target} is out of bounds.");
+            throw new OutOfBoundsException($"Target column {target} is out of bounds.");
         }
 
         if (IsFull(target))
@@ -97,6 +97,11 @@ public class Board
 
     public Colour[] GetColumn(int column)
     {
+        if (column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         var data = new Colour[_gridHeight];
 
         var i = _columns[column].Count - 1;
@@ -123,6 +128,6 @@ public class Board
 
     private bool IsFull(int column)
     {
-        return _columns[column].Count == _gridHeight;
+        return _columns[column].Count >= _gridHeight;
     }
 }
