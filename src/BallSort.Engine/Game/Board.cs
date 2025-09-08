@@ -12,6 +12,10 @@ public class Board
 
     private int _gridHeight;
 
+    public int Width => _gridWidth;
+
+    public int Height => _gridHeight;
+
     private Board()
     {
     }

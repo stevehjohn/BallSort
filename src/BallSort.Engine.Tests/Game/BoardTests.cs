@@ -42,6 +42,53 @@ public class BoardTests
 
     }
 
+    [Fact]
+    public void GetColumnThrowsForInvalidColumn()
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,5,6,7,0,0,0,0,0,0");
+
+        try
+        {
+            board.GetColumn(4);
+        }
+        catch (Exception exception)
+        {
+            Assert.Equal("Column 4 is out of bounds.", exception.Message);
+        }
+    }
+
+    [Fact]
+    public void CloneCreatesACorrectCopy()
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+
+        var clone = board.Clone();
+        
+        Assert.NotSame(board, clone);
+        
+        Assert.Equal(4, clone.Width);
+        
+        Assert.Equal(3, clone.Height);
+
+        Assert.Equal("Red,Green,Yellow", string.Join(',', clone.GetColumn(0)));
+
+        Assert.Equal("Blue,Orange,DarkPurple", string.Join(',', clone.GetColumn(1)));
+
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(2)));
+
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(3)));
+        
+        clone.Move(0, 2);
+        
+        Assert.Equal("Red,Green,Yellow", string.Join(',', board.GetColumn(0)));
+        
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', board.GetColumn(2)));
+        
+        Assert.Equal("Red,Green,Empty", string.Join(',', clone.GetColumn(0)));
+        
+        Assert.Equal("Yellow,Empty,Empty", string.Join(',', clone.GetColumn(2)));
+    }
+
     private static Board BoardFromLayout(int width, int height, string layout)
     {
         var puzzle = new Puzzle
