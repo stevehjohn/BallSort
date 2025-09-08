@@ -4,9 +4,9 @@ public class Board
 {
     private int[][] _columns;
 
-    private readonly int _gridWidth;
+    private int _gridWidth;
 
-    private readonly int _gridHeight;
+    private int _gridHeight;
     
     private Board()
     {
@@ -41,6 +41,10 @@ public class Board
         {
             _columns = new int[_gridWidth][]
         };
+
+        board._gridWidth = _gridWidth;
+
+        board._gridHeight = _gridHeight;
         
         for (var column = 0; column < _columns.Length; column++)
         {
