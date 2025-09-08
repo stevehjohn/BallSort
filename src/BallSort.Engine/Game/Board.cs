@@ -53,12 +53,12 @@ public class Board
     {
         Guard(source, "Source column {column} is out of bounds.");
 
-        var sourceBall = Top(source);
-
-        if (sourceBall == Colour.Empty)
+        if (_columns[source].Count == 0)
         {
-            throw new InvalidMoveException($"Source column {source} contains no balls.");
+            throw new InvalidMoveException($"Source column {source} contains is empty.");
         }
+
+        var sourceBall = _columns[source].Peek();
 
         Guard(target,  "Target column {column} is out of bounds.");
 
