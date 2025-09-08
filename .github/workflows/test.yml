@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with: { dotnet-version: 9.0.x }
 
-      - name: Test (with coverage)
+      - name: Run Tests (with coverage + console log)
         run: |
           cd src
           dotnet test -c Release \
@@ -27,29 +27,25 @@ jobs:
             /p:CollectCoverage=true \
             /p:CoverletOutput=TestResults/Coverage/coverage \
             /p:CoverletOutputFormat=cobertura
-
+    
+      - name: List coverage files (debug)
+        run: |
+          find . -type f -name "coverage*.cobertura.xml" -print
+    
       - name: Generate coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@v5
         with:
-          reports: "src/**/TestResults/Coverage/coverage*.cobertura.xml"
+          reports: "**/TestResults/Coverage/coverage*.cobertura.xml"
           targetdir: "coveragereport"
           reporttypes: "HtmlInline;MarkdownSummary;Badges"
-
+    
       - name: Publish coverage summary
         run: |
           echo "### Code Coverage" >> $GITHUB_STEP_SUMMARY
           cat coveragereport/Summary.md >> $GITHUB_STEP_SUMMARY
-
+    
       - name: Upload coverage HTML
         uses: actions/upload-artifact@v4
         with:
           name: coverage-html
           path: coveragereport
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: coveragereport
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
