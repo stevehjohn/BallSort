@@ -60,8 +60,7 @@ public class Board
 
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException(
-                $"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
         }
     }
 
