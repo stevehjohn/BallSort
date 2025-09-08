@@ -46,8 +46,13 @@ public class Board
 
     public void Move(int source, int target)
     {
-        var sourceBall = GetTopmostBall(source);
+        if (source >= _gridWidth)
+        {
+            throw new InvalidMoveException($"Column {source} is out of bounds");
+        }
 
+        var sourceBall = GetTopmostBall(source);
+        
         if (sourceBall == Colour.Empty)
         {
             throw new InvalidMoveException($"Column {source} contains no balls.");
@@ -56,6 +61,11 @@ public class Board
         if (IsFull(target))
         {
             throw new InvalidMoveException($"Column {target} is full.");
+        }
+
+        if (target >= _gridWidth)
+        {
+            throw new InvalidMoveException($"Column {target} is out of bounds");
         }
 
         var targetBall = GetTopmostBall(target);
