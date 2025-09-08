@@ -12,6 +12,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallSort.Engine", "BallSort
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallSort.Engine.Tests", "BallSort.Engine.Tests\BallSort.Engine.Tests.csproj", "{2BF2B3B4-B7C5-4B43-BACA-327A9B7407CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{4F6E595A-D42B-4469-8608-F245870B7CBE}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\test.yml = ..\.github\workflows\test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F69D06F5-7B11-4061-87C4-1733E0E85C12}"
+	ProjectSection(SolutionItems) = preProject
+		..\run-console.sh = ..\run-console.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
