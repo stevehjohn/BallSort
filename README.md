@@ -4,8 +4,8 @@ An engine based around the Ball Sort puzzle games.
 
 # Status
 
-![CI](https://github.com/<OWNER>/<REPO>/actions/workflows/<YOUR_WORKFLOW>.yml/badge.svg)
-![coverage](https://<OWNER>.github.io/<REPO>/badge_linecoverage.svg)
+![CI](https://github.com/stevehjohn/BallSort/actions/workflows/test.yml/badge.svg)
+![coverage](https://stevehjohn.github.io/BallSort/badge_linecoverage.svg)
 
 [Coverage Report](https://stevehjohn.github.io/BallSort/index.html)
 
