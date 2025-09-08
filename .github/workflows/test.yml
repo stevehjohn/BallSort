@@ -21,5 +21,4 @@ jobs:
             /p:CollectCoverage=true \
             /p:CoverletOutputFormat=cobertura \
             /p:CoverletOutput=TestResults/Coverage/coverage \
-            /p:Exclude="[*.Tests]*" \
-            /p:ExcludeByFile="**/bin/**,**/obj/**"
+            /p:Exclude="[*.Tests]*"
