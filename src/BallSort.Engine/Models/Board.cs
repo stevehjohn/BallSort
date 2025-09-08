@@ -51,6 +51,10 @@ public class Board
             throw new InvalidMoveException($"Column {source} contains no balls.");
         }
 
+        if (IsFull(target))
+        {
+            throw new InvalidMoveException($"Column {target} is full.");        }
+
         var targetBall = GetTopmostBall(target);
         
         if (targetBall != Colour.Empty && sourceBall != targetBall)
@@ -93,5 +97,10 @@ public class Board
         }
 
         return Colour.Empty;
+    }
+
+    private bool IsFull(int column)
+    {
+        return _columns[column][_topRow] != Colour.Empty;
     }
 }
