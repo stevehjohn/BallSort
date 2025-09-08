@@ -17,6 +17,7 @@ Puzzle is sent down from left to right column wise, bottom to top row wise.
 
 ## Colours
 
+```
 1 = Red
 2 = Green
 3 = Yellow
@@ -29,3 +30,4 @@ Puzzle is sent down from left to right column wise, bottom to top row wise.
 10 = Pink
 11 = Dark Green
 12 = Lilac
+```
