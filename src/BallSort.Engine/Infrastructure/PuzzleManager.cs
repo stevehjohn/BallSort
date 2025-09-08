@@ -5,14 +5,14 @@ namespace BallSort.Engine.Infrastructure;
 
 public class PuzzleManager
 {
-    private List<Grid> _puzzles;
+    private List<Board> _puzzles;
 
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
 
-    public Grid GetPuzzle(int puzzleNumber) => _puzzles[puzzleNumber].Clone();
+    public Board GetPuzzle(int puzzleNumber) => _puzzles[puzzleNumber].Clone();
         
     public static string Path { get; set; }
 
@@ -35,18 +35,18 @@ public class PuzzleManager
 
         var puzzles = JsonSerializer.Deserialize<Puzzle[]>(puzzleJson, JsonSerializerOptions);
 
-        var grids = new List<Grid>();
+        var boards = new List<Board>();
 
         foreach (var puzzle in puzzles)
         {
-            var grid = new Grid(puzzle);
+            var board = new Board(puzzle);
 
-            grids.Add(grid);
+            boards.Add(board);
         }
         
         var instance = new PuzzleManager
         {
-            _puzzles = grids
+            _puzzles = boards
         };
         
         return instance;
