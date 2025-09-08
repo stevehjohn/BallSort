@@ -4,7 +4,7 @@ namespace BallSort.Console.Runners;
 
 public class Remote
 {
-    public void Run(LocalOptions options)
+    public void Run(RemoteOptions options)
     {
     }
 }
