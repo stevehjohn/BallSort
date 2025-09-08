@@ -1,3 +1,4 @@
+using BallSort.Engine.Exceptions;
 using BallSort.Engine.Game;
 using BallSort.Engine.Models;
 using Xunit;
@@ -47,14 +48,9 @@ public class BoardTests
     {
         var board = BoardFromLayout(4, 3, "1,2,3,5,6,7,0,0,0,0,0,0");
 
-        try
-        {
-            board.GetColumn(4);
-        }
-        catch (Exception exception)
-        {
-            Assert.Equal("Column 4 is out of bounds.", exception.Message);
-        }
+        var exception = Assert.Throws<OutOfBoundsException>(() => board.GetColumn(4));
+        
+        Assert.Equal("Column 4 is out of bounds.", exception.Message);
     }
 
     [Fact]
