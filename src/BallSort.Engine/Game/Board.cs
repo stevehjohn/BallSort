@@ -51,7 +51,7 @@ public class Board
 
     public void Move(int source, int target)
     {
-        Guard(source);
+        Guard(source, "Source column {column} is out of bounds.");
 
         var sourceBall = Top(source);
 
@@ -60,7 +60,7 @@ public class Board
             throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
-        Guard(target);
+        Guard(target,  "Target column {column} is out of bounds.");
 
         if (IsFull(target))
         {
@@ -192,11 +192,16 @@ public class Board
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void Guard(int column)
+    private void Guard(int column, string messageTemplate = null)
     {
         if ((uint) column >= _gridWidth)
         {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+            if (messageTemplate == null)
+            {
+                throw new OutOfBoundsException($"Column {column} is out of bounds.");
+            }
+            
+            throw new OutOfBoundsException(messageTemplate.Replace("{column}", column.ToString()));
         }
     }
 }
