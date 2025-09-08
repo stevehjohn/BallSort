@@ -52,13 +52,8 @@ public class Board
         }
 
         var targetBall = GetTopmostBall(target);
-
-        if (targetBall != Colour.Empty)
-        {
-            throw new InvalidMoveException($"Column {source} is full.");
-        }
         
-        if (sourceBall != targetBall && targetBall != Colour.Empty)
+        if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
             throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} on to {targetBall.ToHumanReadable()} ball in column {target}.");
         }
