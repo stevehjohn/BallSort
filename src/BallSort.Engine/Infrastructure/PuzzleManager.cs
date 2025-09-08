@@ -14,12 +14,35 @@ public class PuzzleManager
     };
 
     public Board GetPuzzle(int puzzleNumber) => _puzzles[puzzleNumber].Clone();
-        
-    public static string Path { get; set; }
 
-    private static readonly Lazy<PuzzleManager> Lazy = new(GetPuzzleManager);
+    private static string _path;
 
-    public static PuzzleManager Instance => Lazy.Value;
+    private static Lazy<PuzzleManager> _lazy = new(GetPuzzleManager);
+
+    private static PuzzleManager _instance;
+    
+    public static string Path
+    {
+        set
+        {
+            _path = value;
+            
+            _lazy = new Lazy<PuzzleManager>(GetPuzzleManager);
+
+            Instance = null;
+        }
+    }
+
+    public static PuzzleManager Instance
+    {
+        get
+        {
+            _instance = _lazy.Value;
+
+            return _instance;
+        }
+        private set => _instance = value;
+    }
 
     private PuzzleManager()
     {
@@ -27,12 +50,12 @@ public class PuzzleManager
 
     private static PuzzleManager GetPuzzleManager()
     {
-        if (Path == null)
+        if (_path == null)
         {
             throw new InvalidOperationException("Please set the Path property before using the PuzzleManager.");
         }
 
-        var puzzleJson = File.ReadAllText(Path);
+        var puzzleJson = File.ReadAllText(_path);
 
         var puzzles = JsonSerializer.Deserialize<Puzzle[]>(puzzleJson, JsonSerializerOptions);
 

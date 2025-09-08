@@ -25,4 +25,14 @@ public class PuzzleManagerTests
         
         Assert.Equal("Empty,Empty,Empty", string.Join(',', board.GetColumn(3)));
     }
+
+    [Fact]
+    public void GetPuzzleThrowsWhenPathNotSet()
+    {
+        PuzzleManager.Path = null;
+        
+        var exception = Assert.Throws<InvalidOperationException>(() => PuzzleManager.Instance.GetPuzzle(0));
+        
+        Assert.Equal("Please set the Path property before using the PuzzleManager.", exception.Message);
+    }
 }
