@@ -29,3 +29,18 @@ jobs:
         reports: "src/**/TestResults/*/coverage.cobertura.xml"
         targetdir: "coveragereport"
         reporttypes: "HtmlInline;MarkdownSummary;Badges"
+        tag: "${{ github.run_number }}"
+        
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-html
+        path: coveragereport
+      
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: coveragereport
+
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
