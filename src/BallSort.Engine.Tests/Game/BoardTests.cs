@@ -147,10 +147,10 @@ public class BoardTests
     }
 
     [Theory]
-    [InlineData(3, 0)]
-    [InlineData(2, 1)]
-    [InlineData(1, 2)]
-    [InlineData(0, 3)]
+    [InlineData(0, 0)]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(3, 3)]
     public void CapacityReturnsCorrectValue(int expectedCapacity, int column)
     {
         var board = BoardFromLayout(4, 3, "1,1,1,1,1,0,1,0,0,0,0,0");
