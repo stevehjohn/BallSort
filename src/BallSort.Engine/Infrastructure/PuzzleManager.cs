@@ -17,32 +17,19 @@ public class PuzzleManager
 
     private static string _path;
 
-    private static Lazy<PuzzleManager> _lazy = new(GetPuzzleManager);
+    private static Lazy<PuzzleManager> _lazy = new(GetPuzzleManager, LazyThreadSafetyMode.PublicationOnly);
 
-    private static PuzzleManager _instance;
-    
     public static string Path
     {
         set
         {
             _path = value;
             
-            _lazy = new Lazy<PuzzleManager>(GetPuzzleManager);
-
-            Instance = null;
+            _lazy = new Lazy<PuzzleManager>(GetPuzzleManager, LazyThreadSafetyMode.PublicationOnly);
         }
     }
 
-    public static PuzzleManager Instance
-    {
-        get
-        {
-            _instance = _lazy.Value;
-
-            return _instance;
-        }
-        private set => _instance = value;
-    }
+    public static PuzzleManager Instance => _lazy.Value;
 
     private PuzzleManager()
     {
