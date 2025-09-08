@@ -50,7 +50,7 @@ public class Board
 
     public void Move(int source, int target)
     {
-        if (source >= _gridWidth)
+        if ((uint) source >= _gridWidth)
         {
             throw new OutOfBoundsException($"Source column {source} is out of bounds.");
         }
@@ -62,7 +62,7 @@ public class Board
             throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
-        if (target >= _gridWidth)
+        if ((uint) target >= _gridWidth)
         {
             throw new OutOfBoundsException($"Target column {target} is out of bounds.");
         }
@@ -101,7 +101,7 @@ public class Board
 
     public Colour[] GetColumn(int column)
     {
-        if (column >= _gridWidth)
+        if ((uint) column >= _gridWidth)
         {
             throw new OutOfBoundsException($"Column {column} is out of bounds.");
         }
@@ -118,6 +118,36 @@ public class Board
         }
         
         return data;
+    }
+
+    public bool IsComplete(int column)
+    {
+        if ((uint) column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
+        if (_columns[column].Count == 0)
+        {
+            return true;
+        }
+
+        if (_columns[column].Count != _gridHeight)
+        {
+            return false;
+        }
+
+        var colour = _columns[column].Peek();
+        
+        foreach (var item in _columns[column])
+        {
+            if (item != colour)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private Colour GetTopmostBall(int column)

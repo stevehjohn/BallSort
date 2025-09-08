@@ -40,7 +40,18 @@ public class BoardTests
         var board = BoardFromLayout(4, 3, layout);
         
         Assert.Equal(expected, string.Join(',', board.GetColumn(column)));
+    }
 
+    [Theory]
+    [InlineData(0, false)]
+    [InlineData(1, true)]
+    [InlineData(2, false)]
+    [InlineData(3, true)]
+    public void IsCompleteReturnsCorrectValue(int column, bool isComplete)
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,4,4,4,5,6,0,0,0,0");
+        
+        Assert.Equal(isComplete, board.IsComplete(column));
     }
 
     [Fact]
@@ -52,7 +63,7 @@ public class BoardTests
         
         Assert.Equal("Column 4 is out of bounds.", exception.Message);
     }
-
+    
     [Fact]
     public void CloneCreatesACorrectCopy()
     {
