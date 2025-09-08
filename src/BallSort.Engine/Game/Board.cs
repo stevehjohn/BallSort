@@ -48,7 +48,7 @@ public class Board
     {
         if (source >= _gridWidth)
         {
-            throw new InvalidMoveException($"Source column {source} is out of bounds");
+            throw new InvalidMoveException($"Source column {source} is out of bounds.");
         }
 
         var sourceBall = GetTopmostBall(source);
@@ -60,7 +60,7 @@ public class Board
 
         if (target >= _gridWidth)
         {
-            throw new InvalidMoveException($"Target column {target} is out of bounds");
+            throw new InvalidMoveException($"Target column {target} is out of bounds.");
         }
 
         if (IsFull(target))
