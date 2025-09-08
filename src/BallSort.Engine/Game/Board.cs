@@ -85,6 +85,22 @@ public class Board
         return board;
     }
 
+    public Colour[] GetColumn(int column)
+    {
+        var data = new Colour[_gridHeight];
+
+        var i = _columns[column].Count - 1;
+        
+        foreach (var item in _columns[column])
+        {
+            data[i] = item;
+
+            i--;
+        }
+        
+        return data;
+    }
+
     private Colour GetTopmostBall(int column)
     {
         if (_columns[column].Count == 0)
