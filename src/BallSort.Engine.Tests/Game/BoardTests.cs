@@ -48,12 +48,24 @@ public class BoardTests
     [InlineData(0, false)]
     [InlineData(1, true)]
     [InlineData(2, false)]
-    [InlineData(3, true)]
+    [InlineData(3, false)]
     public void IsCompleteReturnsCorrectValue(int column, bool isComplete)
     {
         var board = BoardFromLayout(4, 3, "1,2,3,4,4,4,5,6,0,0,0,0");
         
         Assert.Equal(isComplete, board.IsComplete(column));
+    }
+    
+    [Theory]
+    [InlineData(0, false)]
+    [InlineData(1, false)]
+    [InlineData(2, false)]
+    [InlineData(3, true)]
+    public void IsEmptyReturnsCorrectValue(int column, bool isComplete)
+    {
+        var board = BoardFromLayout(4, 3, "1,2,3,4,4,4,5,6,0,0,0,0");
+        
+        Assert.Equal(isComplete, board.IsEmpty(column));
     }
 
     [Fact]
