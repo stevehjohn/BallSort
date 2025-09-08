@@ -118,6 +118,11 @@ public class Board
 
     private Colour GetTopmostBall(int column)
     {
+        if (column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         if (_columns[column].Count == 0)
         {
             return Colour.Empty;
@@ -128,6 +133,11 @@ public class Board
 
     private bool IsFull(int column)
     {
+        if (column >= _gridWidth)
+        {
+            throw new OutOfBoundsException($"Column {column} is out of bounds.");
+        }
+
         return _columns[column].Count >= _gridHeight;
     }
 }
