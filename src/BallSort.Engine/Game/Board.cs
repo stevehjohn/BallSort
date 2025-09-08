@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using BallSort.Engine.Exceptions;
 using BallSort.Engine.Extensions;
 using BallSort.Engine.Models;
@@ -50,10 +51,7 @@ public class Board
 
     public void Move(int source, int target)
     {
-        if ((uint) source >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Source column {source} is out of bounds.");
-        }
+        Guard(source);
 
         var sourceBall = Top(source);
 
@@ -62,10 +60,7 @@ public class Board
             throw new InvalidMoveException($"Source column {source} contains no balls.");
         }
 
-        if ((uint) target >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Target column {target} is out of bounds.");
-        }
+        Guard(target);
 
         if (IsFull(target))
         {
@@ -102,10 +97,7 @@ public class Board
 
     public Colour[] GetColumn(int column)
     {
-        if ((uint) column >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
-        }
+        Guard(column);
 
         var data = new Colour[_gridHeight];
 
@@ -123,10 +115,7 @@ public class Board
 
     public bool IsComplete(int column)
     {
-        if ((uint) column >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
-        }
+        Guard(column);
 
         if (_columns[column].Count != _gridHeight)
         {
@@ -148,20 +137,14 @@ public class Board
 
     public bool IsEmpty(int column)
     {
-        if ((uint) column >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
-        }
+        Guard(column);
 
         return _columns[column].Count == 0;
     }
 
     public Colour Top(int column)
     {
-        if ((uint) column >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
-        }
+        Guard(column);
 
         if (_columns[column].Count == 0)
         {
@@ -173,10 +156,7 @@ public class Board
 
     public int TopRunLength(int column)
     {
-        if ((uint) column >= _gridWidth)
-        {
-            throw new OutOfBoundsException($"Column {column} is out of bounds.");
-        }
+        Guard(column);
 
         var stack = _columns[column];
 
@@ -206,11 +186,17 @@ public class Board
 
     public bool IsFull(int column)
     {
+        Guard(column);
+
+        return _columns[column].Count >= _gridHeight;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void Guard(int column)
+    {
         if ((uint) column >= _gridWidth)
         {
             throw new OutOfBoundsException($"Column {column} is out of bounds.");
         }
-
-        return _columns[column].Count >= _gridHeight;
     }
 }
