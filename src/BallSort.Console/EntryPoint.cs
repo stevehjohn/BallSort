@@ -1,4 +1,4 @@
-﻿namespace BallSort;
+﻿namespace BallSort.Console;
 
 public static class EntryPoint
 {
