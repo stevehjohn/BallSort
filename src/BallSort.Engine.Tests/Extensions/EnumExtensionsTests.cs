@@ -8,7 +8,7 @@ public class EnumExtensionsTests
 {
     [Theory]
     [InlineData(Colour.Blue, "Blue")]
-    [InlineData(Colour.DarkGreen, "Dark Green")]
+    [InlineData(Colour.Teal, "Teal")]
     [InlineData(Colour.DarkPurple, "Dark Purple")]
     public void ToHumanReadableFormatsTextCorrectly(Colour colour, string expected)
     {
