@@ -1,5 +1,7 @@
 using BallSort.Console.Infrastructure;
+using BallSort.Engine;
 using BallSort.Engine.Infrastructure;
+using static System.Console;
 
 namespace BallSort.Console.Runners;
 
@@ -9,6 +11,21 @@ public class Local
     {
         PuzzleManager.Path = "Data/Puzzles.json";
         
-        var puzzle = PuzzleManager.Instance.GetPuzzle(options.PuzzleNumber);
+        var board = PuzzleManager.Instance.GetPuzzle(options.PuzzleNumber);
+        
+        Clear();
+        
+        WriteLine();
+        
+        WriteLine($"  Solving puzlle #{options.PuzzleNumber}: {board.Width}x{board.Height}, .");
+
+        var solver = new Solver(board);
+
+        var solution = solver.Solve();
+
+        foreach (var step in solution)
+        {
+            
+        }
     }
 }
