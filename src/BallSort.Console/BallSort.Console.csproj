@@ -16,4 +16,10 @@
       <ProjectReference Include="..\BallSort.Engine\BallSort.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Data\Puzzles.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
