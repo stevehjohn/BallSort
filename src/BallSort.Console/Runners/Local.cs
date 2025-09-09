@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using BallSort.Console.Infrastructure;
 using BallSort.Engine;
 using BallSort.Engine.Infrastructure;
@@ -17,15 +18,32 @@ public class Local
         
         WriteLine();
         
-        WriteLine($"  Solving puzzle #{options.PuzzleNumber}: {board.Width}x{board.Height}, .");
-
+        WriteLine($"  Solving puzzle #{options.PuzzleNumber}: {board.Width}x{board.Height}, {board.Colours} colours.");
+        
+        // TODO: Separate thread.
         var solver = new Solver(board);
 
-        var solution = solver.Solve();
+        var stopwatch = Stopwatch.StartNew();
 
+        var solution = solver.Solve();
+        
+        stopwatch.Stop();
+        
+        WriteLine();
+        
+        WriteLine($@"  Solved in {stopwatch.Elapsed:h\:mm\:ss\.fff}, steps: {solution.Count:N0}.");
+        
+        WriteLine();
+
+        var i = 1;
+        
         foreach (var step in solution)
         {
-            
+            WriteLine($"  Step {i:N0,3}: {step.Source:N0,2} -> {step.Target:N0,2}.");
+
+            i++;
         }
+        
+        WriteLine();
     }
 }

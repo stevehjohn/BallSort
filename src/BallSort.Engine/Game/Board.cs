@@ -9,13 +9,13 @@ public class Board
 {
     private Stack<Colour>[] _columns;
 
-    private int _gridWidth;
+    private readonly HashSet<Colour> _colours = [];
 
-    private int _gridHeight;
+    public int Width { get; private init; }
 
-    public int Width => _gridWidth;
+    public int Height { get; private init; }
 
-    public int Height => _gridHeight;
+    public int Colours => _colours.Count;
 
     private Board()
     {
@@ -27,21 +27,23 @@ public class Board
 
         var index = 0;
 
-        _gridWidth = puzzle.GridWidth;
+        Width = puzzle.GridWidth;
 
-        _gridHeight = puzzle.GridHeight;
+        Height = puzzle.GridHeight;
 
-        for (var column = 0; column < _gridWidth; column++)
+        for (var column = 0; column < Width; column++)
         {
-            _columns[column] = new Stack<Colour>(_gridHeight);
+            _columns[column] = new Stack<Colour>(Height);
 
-            for (var row = 0; row < _gridHeight; row++)
+            for (var row = 0; row < Height; row++)
             {
                 var ball = (Colour) puzzle.Data.Layout[index];
 
                 if (ball != Colour.Empty)
                 {
                     _columns[column].Push(ball);
+
+                    _colours.Add(ball);
                 }
 
                 index++;
@@ -62,7 +64,7 @@ public class Board
 
         Guard(target,  "Target column {column} is out of bounds.");
 
-        if (_gridHeight - _columns[target].Count == 0)
+        if (Height - _columns[target].Count == 0)
         {
             throw new InvalidMoveException($"Target column {target} is full.");
         }
@@ -82,9 +84,9 @@ public class Board
     {
         var board = new Board
         {
-            _columns = new Stack<Colour>[_gridWidth],
-            _gridWidth = _gridWidth,
-            _gridHeight = _gridHeight
+            _columns = new Stack<Colour>[Width],
+            Width = Width,
+            Height = Height
         };
 
         for (var column = 0; column < _columns.Length; column++)
@@ -99,7 +101,7 @@ public class Board
     {
         Guard(column);
 
-        var data = new Colour[_gridHeight];
+        var data = new Colour[Height];
 
         var i = _columns[column].Count - 1;
 
@@ -117,7 +119,7 @@ public class Board
     {
         Guard(column);
 
-        if (_columns[column].Count != _gridHeight)
+        if (_columns[column].Count != Height)
         {
             return false;
         }
@@ -193,13 +195,13 @@ public class Board
     {
         Guard(column);
 
-        return _gridHeight - _columns[column].Count;
+        return Height - _columns[column].Count;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void Guard(int column, string messageTemplate = null)
     {
-        if ((uint) column >= (uint) _gridWidth)
+        if ((uint) column >= (uint) Width)
         {
             if (messageTemplate == null)
             {
