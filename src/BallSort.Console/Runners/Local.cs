@@ -17,7 +17,7 @@ public class Local
         
         WriteLine();
         
-        WriteLine($"  Solving puzlle #{options.PuzzleNumber}: {board.Width}x{board.Height}, .");
+        WriteLine($"  Solving puzzle #{options.PuzzleNumber}: {board.Width}x{board.Height}, .");
 
         var solver = new Solver(board);
 
