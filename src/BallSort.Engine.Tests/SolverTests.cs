@@ -24,5 +24,16 @@ public class SolverTests
             
             expectedMoves.Add(new Move(int.Parse(moveSplit[0]), int.Parse(moveSplit[1])));
         }
+        
+        Assert.Equal(expectedMoves.Count, solution.Count);
+
+        var i = 0;
+        
+        foreach (var expectedMove in expectedMoves)
+        {
+            Assert.Equal(expectedMove, solution[i]);
+            
+            i++;
+        }
     }
 }
