@@ -72,8 +72,3 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         id: deploy
         uses: actions/deploy-pages@v4
-
-      - name: Deploy to GitHub Pages
-        if: ${{ github.ref == 'refs/heads/master' }}
-        id: deploy
-        uses: actions/deploy-pages@v4
