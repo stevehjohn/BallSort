@@ -15,6 +15,11 @@ public enum Colour
     Purple = 8,
     LightGreen = 9,
     Pink = 10,
-    DarkGreen = 11,
-    Lilac = 12
+    Teal = 11,
+    Lilac = 12,
+    Brown = 13,
+    Magnolia = 14,
+    DarkRed = 15,
+    Mint = 16,
+    Olive = 17
 }
