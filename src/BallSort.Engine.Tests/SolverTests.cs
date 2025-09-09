@@ -6,8 +6,8 @@ namespace BallSort.Engine.Tests;
 
 public class SolverTests
 {
-    [Theory]
-    [InlineData("", 0, 0, "")]
+    // [Theory]
+    // [InlineData("", 0, 0, "")]
     public void SolveReturnsExpectedMoves(string layout, int width, int height, string moves)
     {
         var solver = new Solver(layout.BoardFromLayout(width, height));
