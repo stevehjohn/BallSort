@@ -1,6 +1,7 @@
 using BallSort.Engine.Exceptions;
 using BallSort.Engine.Game;
 using BallSort.Engine.Models;
+using BallSort.Engine.Tests.Extensions;
 using Xunit;
 
 namespace BallSort.Engine.Tests.Game;
@@ -18,7 +19,7 @@ public class BoardTests
     [InlineData("1,2,3,1,3,0,0,0,0,0,0,0", 0, 1, null)]
     public void MoveThrowsForInvalidMoves(string layout, int source, int target, string expectedMessage)
     {
-        var board = BoardFromLayout(4, 3, layout);
+        var board = layout.BoardFromLayout(4, 3);
 
         try
         {
@@ -39,7 +40,7 @@ public class BoardTests
     [InlineData("1,2,3,5,6,7,0,0,0,0,0,0", 2, "Empty,Empty,Empty")]
     public void GetColumnReturnsCorrectData(string layout, int column, string expected)
     {
-        var board = BoardFromLayout(4, 3, layout);
+        var board = layout.BoardFromLayout(4, 3);
         
         Assert.Equal(expected, string.Join(',', board.GetColumn(column)));
     }
@@ -51,7 +52,7 @@ public class BoardTests
     [InlineData(3, false)]
     public void IsCompleteReturnsCorrectValue(int column, bool isComplete)
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,4,4,4,5,6,0,0,0,0");
+        var board = "1,2,3,4,4,4,5,6,0,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(isComplete, board.IsComplete(column));
     }
@@ -63,7 +64,7 @@ public class BoardTests
     [InlineData(3, true)]
     public void IsEmptyReturnsCorrectValue(int column, bool isComplete)
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,4,4,4,5,6,0,0,0,0");
+        var board = "1,2,3,4,4,4,5,6,0,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(isComplete, board.IsEmpty(column));
     }
@@ -71,7 +72,7 @@ public class BoardTests
     [Fact]
     public void GetColumnThrowsForInvalidColumn()
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,5,6,7,0,0,0,0,0,0");
+        var board = "1,2,3,5,6,7,0,0,0,0,0,0".BoardFromLayout(4, 3);
 
         var exception = Assert.Throws<OutOfBoundsException>(() => board.GetColumn(4));
         
@@ -81,7 +82,7 @@ public class BoardTests
     [Fact]
     public void CloneCreatesACorrectCopy()
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+        var board = "1,2,3,4,5,6,0,0,0,0,0,0".BoardFromLayout(4, 3);
 
         var clone = board.Clone();
         
@@ -117,7 +118,7 @@ public class BoardTests
     [InlineData(Colour.Empty, 3)]
     public void TopReturnsCorrectColour(Colour expectedColour, int column)
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+        var board = "1,2,3,4,5,6,0,0,0,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(expectedColour, board.Top(column));
     }
@@ -129,7 +130,7 @@ public class BoardTests
     [InlineData(false, 3)]
     public void IsFullReturnsCorrectValue(bool isFull, int column)
     {
-        var board = BoardFromLayout(4, 3, "1,2,3,4,5,6,0,0,0,0,0,0");
+        var board = "1,2,3,4,5,6,0,0,0,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(isFull, board.IsFull(column));
     }
@@ -141,7 +142,7 @@ public class BoardTests
     [InlineData(0, 3)]
     public void TopRunLengthReturnsCorrectValue(int expectedLength, int column)
     {
-        var board = BoardFromLayout(4, 3, "1,1,1,2,3,3,4,4,5,0,0,0");
+        var board = "1,1,1,2,3,3,4,4,5,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(expectedLength, board.TopRunLength(column));
     }
@@ -153,30 +154,8 @@ public class BoardTests
     [InlineData(3, 3)]
     public void CapacityReturnsCorrectValue(int expectedCapacity, int column)
     {
-        var board = BoardFromLayout(4, 3, "1,1,1,1,1,0,1,0,0,0,0,0");
+        var board = "1,1,1,1,1,0,1,0,0,0,0,0".BoardFromLayout(4, 3);
         
         Assert.Equal(expectedCapacity, board.Capacity(column));
-    }
-
-    private static Board BoardFromLayout(int width, int height, string layout)
-    {
-        var puzzle = new Puzzle
-        {
-            GridWidth = width,
-            GridHeight = height,
-            Data = new Data
-            {
-                Layout = new int[width * height]
-            }
-        };
-
-        var balls = layout.Split(',');
-
-        for (var i = 0; i < balls.Length; i++)
-        {
-            puzzle.Data.Layout[i] = int.Parse(balls[i]);
-        }
-
-        return new Board(puzzle);
     }
 }

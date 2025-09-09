@@ -1,3 +1,5 @@
+using BallSort.Engine.Models;
+using BallSort.Engine.Tests.Extensions;
 using Xunit;
 
 namespace BallSort.Engine.Tests;
@@ -5,8 +7,22 @@ namespace BallSort.Engine.Tests;
 public class SolverTests
 {
     [Theory]
-    [InlineData("", "")]
-    public void SolveReturnsExpectedMoves(string layout, string moves)
+    [InlineData("", 0, 0, "")]
+    public void SolveReturnsExpectedMoves(string layout, int width, int height, string moves)
     {
+        var solver = new Solver(layout.BoardFromLayout(width, height));
+
+        var solution = solver.Solve();
+
+        var expectedMoves = new List<Move>();
+
+        var movesSplit = moves.Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var move in movesSplit)
+        {
+            var moveSplit = move.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            
+            expectedMoves.Add(new Move(int.Parse(moveSplit[0]), int.Parse(moveSplit[1])));
+        }
     }
 }
