@@ -18,7 +18,7 @@ public class Local
         
         WriteLine();
         
-        WriteLine($"  Solving puzzle #{options.PuzzleNumber}: {board.Width}x{board.Height}, {board.Colours} colours.");
+        WriteLine($"  Solving puzzle number {options.PuzzleNumber}: {board.Width}x{board.Height}, {board.Colours} colours.");
         
         // TODO: Separate thread.
         var solver = new Solver(board);
@@ -39,7 +39,7 @@ public class Local
         
         foreach (var step in solution)
         {
-            WriteLine($"  Step {i:N0,3}: {step.Source:N0,2} -> {step.Target:N0,2}.");
+            WriteLine($"  Step {i:N0}: {step.Source:N0} -> {step.Target:N0}.");
 
             i++;
         }
