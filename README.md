@@ -18,16 +18,22 @@ Puzzle is sent down from left to right column wise, bottom to top row wise.
 ## Colours
 
 ```
-1 = Red
-2 = Green
-3 = Yellow
-4 = Blue
-5 = Orange
-6 = Dark Purple
-7 = Cyan
-8 = Purple
-9 = Light Green
-10 = Pink
-11 = Dark Green
-12 = Lilac
+Empty = 0,
+Red = 1,
+Green = 2,
+Yellow = 3,
+Blue = 4,
+Orange = 5,
+DarkPurple = 6,
+Cyan = 7,
+Purple = 8,
+LightGreen = 9,
+Pink = 10,
+Teal = 11,
+Lilac = 12,
+Brown = 13,
+Magnolia = 14,
+DarkRed = 15,
+Mint = 16,
+Olive = 17
 ```
