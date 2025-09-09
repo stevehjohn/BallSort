@@ -17,7 +17,7 @@ public static class StringExtensions
             }
         };
 
-        var balls = layout.Split(',');
+        var balls = layout.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         for (var i = 0; i < balls.Length; i++)
         {
