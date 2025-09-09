@@ -39,7 +39,7 @@ public class Local
         
         foreach (var step in solution)
         {
-            WriteLine($"  Step {i:N0}: {step.Source:N0} -> {step.Target:N0}.");
+            WriteLine($"  Step {i,3:N0}: {step.Source,2:N0} -> {step.Target,2:N0}.");
 
             i++;
         }
