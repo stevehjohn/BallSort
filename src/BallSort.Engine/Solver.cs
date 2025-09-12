@@ -28,6 +28,8 @@ public class Solver
             var move = _moveGenerator.GetNextMove();
             
             _board.Move(move);
+            
+            // If no more moves left, backtrack.
         }
         
         return _moves;
