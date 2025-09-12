@@ -41,6 +41,8 @@ public class Solver
 
                 if (_visited.Contains(hash))
                 {
+                    _board.Move(move.Target, move.Source);
+                    
                     continue;
                 }
 
