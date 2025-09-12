@@ -26,18 +26,20 @@ public class Local
         var stopwatch = Stopwatch.StartNew();
 
         var solution = solver.Solve();
+
+        var moves = solution.Moves;
         
         stopwatch.Stop();
         
         WriteLine();
         
-        WriteLine($@"  Solved in {stopwatch.Elapsed:h\:mm\:ss\.fff}, steps: {solution.Count:N0}.");
+        WriteLine($@"  Solved in {stopwatch.Elapsed:h\:mm\:ss\.fff}, steps: {moves.Count:N0}.");
         
         WriteLine();
 
         var i = 1;
         
-        foreach (var step in solution)
+        foreach (var step in moves)
         {
             WriteLine($"  Step {i,3:N0}: {step.Source,2:N0} -> {step.Target,2:N0}.");
 
