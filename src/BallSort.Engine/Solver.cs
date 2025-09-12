@@ -47,11 +47,13 @@ public class Solver
     {
         var moves = _moveGenerator.GetMoves();
 
-        var lastMove = _moves.Peek();
+        var lastMove = _moves.Count > 0 ? _moves.Peek() : Move.NullMove;
+
+        var lastMoveInverted = new Move(lastMove.Target, lastMove.Source);
         
         foreach (var move in moves)
         {
-            if (move == lastMove)
+            if (move == lastMoveInverted)
             {
                 continue;
             }
