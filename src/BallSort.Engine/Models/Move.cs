@@ -2,6 +2,8 @@ namespace BallSort.Engine.Models;
 
 public readonly record struct Move
 {
+    public static Move NullMove = new Move(0, 0);
+    
     public int Source { get; }
 
     public int Target { get; }

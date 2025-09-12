@@ -26,10 +26,13 @@ public class Solver
         while (! _board.IsSolved())
         {
             var move = _moveGenerator.GetNextMove();
-            
-            _board.Move(move);
-            
-            // If no more moves left, backtrack.
+
+            if (! move.CanMove)
+            {
+                // If no more moves left, backtrack.
+            }
+
+            _board.Move(move.Move);
         }
         
         return _moves;

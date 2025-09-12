@@ -12,8 +12,8 @@ public class MoveGenerator
         _board = board;
     }
 
-    public Move GetNextMove()
+    public (bool CanMove, Move Move) GetNextMove()
     {
-        return new Move(0, 0);
+        return (false, Move.NullMove);
     }
 }
