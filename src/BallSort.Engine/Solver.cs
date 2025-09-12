@@ -35,9 +35,7 @@ public class Solver
 
         if (Explore())
         {
-            var moveList = _moves.ToList();
-
-            moveList.Reverse();
+            var moveList = _moves.Reverse().ToList();
             
             return (true, moveList);
         }
