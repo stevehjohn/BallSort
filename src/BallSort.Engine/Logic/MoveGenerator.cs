@@ -22,7 +22,10 @@ public class MoveGenerator
 
             if (move != null)
             {
-                moves.Add(move.Value);
+                if (move.Value.Source != lastMove.Target && move.Value.Target != lastMove.Source)
+                {
+                    moves.Add(move.Value);
+                }
             }
         }
 
