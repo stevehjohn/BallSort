@@ -57,7 +57,7 @@ public class Solver
 
             if (! _visited.Add(hash))
             {
-                _board.Move(move.Target, move.Source);
+                _board.UndoLastMove();
                     
                 continue;
             }
