@@ -18,11 +18,6 @@ public class Solver
     {
         _moves.Clear();
         
-        _moves.Add(new Move(0, 2));
-        _moves.Add(new Move(1, 3));
-        _moves.Add(new Move(0, 3));
-        _moves.Add(new Move(1, 2));
-
         return _moves;
     }
 }
