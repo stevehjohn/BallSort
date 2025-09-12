@@ -9,6 +9,8 @@ public class MoveGenerator
 
     private readonly BoardHasher _boardHasher;
 
+    private HashSet<byte[]> _visited = new(new BoardHashEqualityComparer());
+
     public MoveGenerator(Board board)
     {
         _board = board;
