@@ -51,6 +51,11 @@ public class Board
         }
     }
 
+    public void Move(Move move)
+    {
+        Move(move.Source, move.Target);
+    }
+
     public void Move(int source, int target)
     {
         Guard(source, "Source column {column} is out of bounds.");
@@ -196,6 +201,11 @@ public class Board
         Guard(column);
 
         return Height - _columns[column].Count;
+    }
+
+    public bool IsSolved()
+    {
+        return true;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

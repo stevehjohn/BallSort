@@ -22,6 +22,13 @@ public class Solver
     public List<Move> Solve()
     {
         _moves.Clear();
+
+        while (! _board.IsSolved())
+        {
+            var move = _moveGenerator.GetNextMove();
+            
+            _board.Move(move);
+        }
         
         return _moves;
     }
