@@ -31,8 +31,14 @@ public class Solver
 
         _visited.Add(_boardHasher.GetHash());
 
-        while (true)
+        var moves = _moveGenerator.GetMoves();
+
+        foreach (var move in moves)
         {
+            _board.Move(move);
+
+            _visited.Add(_boardHasher.GetHash());
+            
             if (ExploreMoves(_moveGenerator.GetMoves()))
             {
                 break;
@@ -64,7 +70,7 @@ public class Solver
 
             _moves.Push(move);
             
-            ExploreMoves(_moveGenerator.GetMoves());
+            return ExploreMoves(_moveGenerator.GetMoves());
         }
 
         return false;
