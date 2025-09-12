@@ -41,12 +41,16 @@ public class Solver
 
             _visited.Add(_boardHasher.GetHash());
             
+            _moves.Push(move);
+            
             if (ExploreMoves(_moveGenerator.GetMoves()))
             {
                 solved = true;
                 
                 break;
             }
+
+            _moves.Pop();
         }
 
         if (solved)
