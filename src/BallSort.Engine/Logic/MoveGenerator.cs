@@ -12,7 +12,7 @@ public class MoveGenerator
         _board = board;
     }
 
-    public List<Move> GetMoves()
+    public List<Move> GetMoves(Move lastMove)
     {
         return [];
     }

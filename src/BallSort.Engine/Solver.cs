@@ -45,17 +45,12 @@ public class Solver
 
     private bool Explore()
     {
-        var moves = _moveGenerator.GetMoves();
-
         var lastMove = _moves.Count > 0 ? _moves.Peek() : Move.NullMove;
+
+        var moves = _moveGenerator.GetMoves(lastMove);
 
         foreach (var move in moves)
         {
-            if (move.Source == lastMove.Target && move.Target == lastMove.Source)
-            {
-                continue;
-            }
-
             _board.Move(move);
 
             if (_board.IsSolved())
