@@ -31,25 +31,30 @@ public class Solver
 
         while (! _board.IsSolved())
         {
-            var moves = _moveGenerator.GetMoves();
-
-            foreach (var move in moves)
-            {
-                _board.Move(move);
-
-                var hash = _boardHasher.GetHash();
-
-                if (! _visited.Add(hash))
-                {
-                    _board.Move(move.Target, move.Source);
-                    
-                    continue;
-                }
-
-                _moves.Push(move);
-            }
+            ExploreMoves(_moveGenerator.GetMoves());
         }
         
         return _moves.ToList();
+    }
+
+    private void ExploreMoves(List<Move> moves)
+    {
+        foreach (var move in moves)
+        {
+            _board.Move(move);
+
+            var hash = _boardHasher.GetHash();
+
+            if (! _visited.Add(hash))
+            {
+                _board.Move(move.Target, move.Source);
+                    
+                continue;
+            }
+
+            _moves.Push(move);
+            
+            ExploreMoves(_moveGenerator.GetMoves());
+        }
     }
 }

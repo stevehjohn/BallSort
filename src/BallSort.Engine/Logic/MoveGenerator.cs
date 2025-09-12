@@ -12,7 +12,7 @@ public class MoveGenerator
         _board = board;
     }
 
-    public IEnumerable<Move> GetMoves()
+    public List<Move> GetMoves()
     {
         return [];
     }
