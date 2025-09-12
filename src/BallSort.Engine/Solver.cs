@@ -43,12 +43,10 @@ public class Solver
                 {
                     _board.Move(move.Target, move.Source);
                     
-                    break;
+                    continue;
                 }
 
                 _moves.Push(move);
-
-                _visited.Add(hash);
             }
         }
         
