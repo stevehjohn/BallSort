@@ -33,29 +33,7 @@ public class Solver
 
         _visited.Add(_boardHasher.GetHash());
 
-        var moves = _moveGenerator.GetMoves();
-
-        var solved = false;
-        
-        foreach (var move in moves)
-        {
-            _board.Move(move);
-
-            _visited.Add(_boardHasher.GetHash());
-            
-            _moves.Push(move);
-            
-            if (ExploreMoves(_moveGenerator.GetMoves()))
-            {
-                solved = true;
-                
-                break;
-            }
-            
-            _board.UndoLastMove();
-
-            _moves.Pop();
-        }
+        var solved = ExploreMoves(_moveGenerator.GetMoves());
 
         if (solved)
         {
