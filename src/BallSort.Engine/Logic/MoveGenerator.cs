@@ -14,10 +14,23 @@ public class MoveGenerator
 
     public List<Move> GetMoves(Move lastMove)
     {
+        var moves = new List<Move>();
+        
         for (var i = 0; i < _board.Width; i++)
         {
+            var move = CheckForColumnMove(i);
+
+            if (move != null)
+            {
+                moves.Add(move.Value);
+            }
         }
 
-        return [];
+        return moves;
+    }
+
+    private Move? CheckForColumnMove(int column)
+    {
+        return null;
     }
 }
