@@ -52,21 +52,21 @@ jobs:
       - name: Verify badge
         run: test -f site/badge_linecoverage.svg
 
-      - name: Commit coverage badge into repo (via PAT)
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        run: |
-          mkdir -p docs
-          cp -f site/badge_linecoverage.svg docs/
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/badge_linecoverage.svg
-          if git diff --cached --quiet; then
-            echo "No changes to badge."
-            exit 0
-          fi
-          git commit -m "chore: update coverage badge [skip ci]"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/stevehjohn/BallSort.git
-          git push origin HEAD:master
+#      - name: Commit coverage badge into repo (via PAT)
+#        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+#        run: |
+#          mkdir -p docs
+#          cp -f site/badge_linecoverage.svg docs/
+#          git config user.name "github-actions[bot]"
+#          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#          git add docs/badge_linecoverage.svg
+#          if git diff --cached --quiet; then
+#            echo "No changes to badge."
+#            exit 0
+#          fi
+#          git commit -m "chore: update coverage badge [skip ci]"
+#          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/stevehjohn/BallSort.git
+#          git push origin HEAD:master
 
       - name: Add .nojekyll (prevent Jekyll processing)
         run: touch site/.nojekyll
