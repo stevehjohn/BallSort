@@ -1,0 +1,19 @@
+using BallSort.Engine.Game;
+using BallSort.Engine.Models;
+
+namespace BallSort.Engine.Logic;
+
+public class MoveGenerator
+{
+    private readonly Board _board;
+
+    public MoveGenerator(Board board)
+    {
+        _board = board;
+    }
+
+    public Move GetNextMove()
+    {
+        return new Move(0, 0);
+    }
+}
