@@ -20,21 +20,23 @@ public class MoveGenerator
         {
             var ball = _board.Top(x);
 
-            var move = GetBestMove(ball, x);
+            var newMoves = GetMoves(ball, x);
 
-            if (move != null)
+            foreach (var move in newMoves)
             {
-                if (move.Value.Source != lastMove.Target && move.Value.Target != lastMove.Source)
+                if (move.Source != lastMove.Target && move.Target != lastMove.Source)
                 {
-                    moves.Add(move.Value);
+                    moves.Add(move);
                 }
             }
+            
+            moves.AddRange(newMoves);
         }
 
         return moves;
     }
 
-    private Move? GetBestMove(Colour ball, int source)
+    private List<Move> GetMoves(Colour ball, int source)
     {
         for (var x = 0; x < _board.Width; x++)
         {
