@@ -46,9 +46,16 @@ public class Solver
     private bool Explore()
     {
         var moves = _moveGenerator.GetMoves();
+
+        var lastMove = _moves.Peek();
         
         foreach (var move in moves)
         {
+            if (move == lastMove)
+            {
+                continue;
+            }
+
             _board.Move(move);
 
             if (_board.IsSolved())
