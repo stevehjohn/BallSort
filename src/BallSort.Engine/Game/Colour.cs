@@ -2,7 +2,7 @@
 
 namespace BallSort.Engine.Game;
 
-public enum Colour
+public enum Colour : byte
 {
     Empty = 0,
     Red = 1,

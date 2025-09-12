@@ -15,6 +15,18 @@ public class BoardHasher
     {
         var hash = new byte[_board.Width * _board.Height];
 
+        var i = 0;
+        
+        for (var x = 0; x < _board.Width; x++)
+        {
+            var column = _board.GetColumn(x);
+
+            for (var y = 0; y < _board.Height; y++)
+            {
+                hash[i] = (byte) column[x];
+            }
+        }
+
         return hash;
     }
 }
