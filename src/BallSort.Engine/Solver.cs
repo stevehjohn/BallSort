@@ -82,8 +82,15 @@ public class Solver
             }
 
             _moves.Push(move);
+
+            if (ExploreMoves(_moveGenerator.GetMoves()))
+            {
+                return true;
+            }
+
+            _board.UndoLastMove();
             
-            return ExploreMoves(_moveGenerator.GetMoves());
+            _moves.Pop();
         }
 
         return false;
