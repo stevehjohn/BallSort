@@ -53,6 +53,8 @@ public class Solver
         {
             _board.Move(move);
 
+            _moves.Push(move);
+
             if (_board.IsSolved())
             {
                 return true;
@@ -63,11 +65,11 @@ public class Solver
             if (! _visited.Add(hash))
             {
                 _board.UndoLastMove();
+
+                _moves.Pop();
                     
                 continue;
             }
-
-            _moves.Push(move);
 
             if (ExploreMoves(_moveGenerator.GetMoves()))
             {
