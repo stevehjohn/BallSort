@@ -33,17 +33,25 @@ public class Solver
 
         while (! _board.IsSolved())
         {
-            ExploreMoves(_moveGenerator.GetMoves());
+            if (ExploreMoves(_moveGenerator.GetMoves()))
+            {
+                break;
+            }
         }
         
         return _moves.ToList();
     }
 
-    private void ExploreMoves(List<Move> moves)
+    private bool ExploreMoves(List<Move> moves)
     {
         foreach (var move in moves)
         {
             _board.Move(move);
+
+            if (_board.IsSolved())
+            {
+                return true;
+            }
 
             var hash = _boardHasher.GetHash();
 
@@ -58,5 +66,7 @@ public class Solver
             
             ExploreMoves(_moveGenerator.GetMoves());
         }
+
+        return false;
     }
 }
