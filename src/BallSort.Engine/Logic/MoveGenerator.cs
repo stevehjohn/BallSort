@@ -16,9 +16,11 @@ public class MoveGenerator
     {
         var moves = new List<Move>();
         
-        for (var i = 0; i < _board.Width; i++)
+        for (var x = 0; x < _board.Width; x++)
         {
-            var move = CheckForColumnMove(i);
+            var ball = _board.Top(x);
+
+            var move = GetBestMove(ball, x);
 
             if (move != null)
             {
@@ -30,18 +32,6 @@ public class MoveGenerator
         }
 
         return moves;
-    }
-
-    private Move? CheckForColumnMove(int column)
-    {
-        for (var x = 0; x < _board.Width; x++)
-        {
-            var ball = _board.Top(x);
-
-            var move = GetBestMove(ball, x);
-        }
-
-        return null;
     }
 
     private Move? GetBestMove(Colour ball, int source)
