@@ -51,32 +51,28 @@ public class Solver
         {
             _board.Move(move);
 
-            _moves.Push(move);
-
             if (_board.IsSolved())
             {
+                _moves.Push(move);
+
                 return true;
             }
 
             var hash = _boardHasher.GetHash();
 
-            if (! _visited.Add(hash))
+            if (_visited.Add(hash))
             {
-                _board.UndoLastMove();
+                _moves.Push(move);
 
+                if (Explore())
+                {
+                    return true;
+                }
+                
                 _moves.Pop();
-                    
-                continue;
-            }
-
-            if (Explore())
-            {
-                return true;
             }
 
             _board.UndoLastMove();
-            
-            _moves.Pop();
         }
 
         return false;
