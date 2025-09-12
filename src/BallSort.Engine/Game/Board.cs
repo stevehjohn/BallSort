@@ -11,6 +11,8 @@ public class Board
 
     private readonly HashSet<Colour> _colours = [];
 
+    private Move? _lastMove;
+    
     public int Width { get; private init; }
 
     public int Height { get; private init; }
@@ -53,11 +55,10 @@ public class Board
 
     public void Move(Move move)
     {
-        Move(move.Source, move.Target);
-    }
+        var source = move.Source;
 
-    public void Move(int source, int target)
-    {
+        var target = move.Target;
+            
         Guard(source, "Source column {column} is out of bounds.");
 
         if (_columns[source].Count == 0)
@@ -78,11 +79,26 @@ public class Board
 
         if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException(
-                $"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
         }
 
         _columns[target].Push(_columns[source].Pop());
+
+        _lastMove = new Move(source, target);
+
+    }
+
+    public void Move(int source, int target)
+    {
+        Move(new Move(source, target));
+    }
+
+    public void UndoLastMove()
+    {
+        if (_lastMove.HasValue)
+        {
+            Move(_lastMove.Value.Target, _lastMove.Value.Source);
+        }
     }
 
     public Board Clone()
