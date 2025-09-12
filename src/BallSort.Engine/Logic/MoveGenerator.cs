@@ -14,6 +14,10 @@ public class MoveGenerator
 
     public List<Move> GetMoves(Move lastMove)
     {
+        for (var i = 0; i < _board.Width; i++)
+        {
+        }
+
         return [];
     }
 }
