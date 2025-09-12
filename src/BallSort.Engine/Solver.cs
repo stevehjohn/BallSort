@@ -14,7 +14,7 @@ public class Solver
 
     private readonly Stack<Move> _moves = [];
     
-    private HashSet<byte[]> _visited = new(new BoardHashEqualityComparer());
+    private readonly HashSet<byte[]> _visited = new(new BoardHashEqualityComparer());
 
     public Solver(Board board)
     {
@@ -43,7 +43,7 @@ public class Solver
                 {
                     _board.Move(move.Target, move.Source);
                     
-                    continue;
+                    break;
                 }
 
                 _moves.Push(move);
