@@ -39,7 +39,7 @@ public class Solver
 
                 var hash = _boardHasher.GetHash();
 
-                if (_visited.Contains(hash))
+                if (! _visited.Add(hash))
                 {
                     _board.Move(move.Target, move.Source);
                     
