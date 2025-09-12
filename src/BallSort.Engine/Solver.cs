@@ -25,7 +25,7 @@ public class Solver
         _boardHasher = new BoardHasher(_board);
     }
 
-    public List<Move> Solve()
+    public (bool Solved, List<Move> Moves) Solve()
     {
         _moves.Clear();
 
@@ -33,6 +33,8 @@ public class Solver
 
         var moves = _moveGenerator.GetMoves();
 
+        var solved = false;
+        
         foreach (var move in moves)
         {
             _board.Move(move);
@@ -41,11 +43,22 @@ public class Solver
             
             if (ExploreMoves(_moveGenerator.GetMoves()))
             {
+                solved = true;
+                
                 break;
             }
         }
-        
-        return _moves.ToList();
+
+        if (solved)
+        {
+            var moveList = _moves.ToList();
+
+            moveList.Reverse();
+            
+            return (true, moveList);
+        }
+
+        return (false, null);
     }
 
     private bool ExploreMoves(List<Move> moves)
