@@ -10,13 +10,19 @@ public class Solver
 
     private readonly MoveGenerator _moveGenerator;
 
+    private readonly BoardHasher _boardHasher;
+
     private readonly Stack<Move> _moves = [];
     
+    private HashSet<byte[]> _visited = new(new BoardHashEqualityComparer());
+
     public Solver(Board board)
     {
         _board = board;
 
         _moveGenerator = new MoveGenerator(_board);
+
+        _boardHasher = new BoardHasher(_board);
     }
 
     public List<Move> Solve()
@@ -25,20 +31,23 @@ public class Solver
 
         while (! _board.IsSolved())
         {
-            var (canMove, move) = _moveGenerator.GetNextMove();
+            var moves = _moveGenerator.GetMoves();
 
-            if (! canMove)
+            foreach (var move in moves)
             {
-                var lastMove = _moves.Pop();
-                
-                _board.Move(lastMove.Target, lastMove.Source);
+                _board.Move(move);
 
-                continue;
+                var hash = _boardHasher.GetHash();
+
+                if (_visited.Contains(hash))
+                {
+                    continue;
+                }
+
+                _moves.Push(move);
+
+                _visited.Add(hash);
             }
-
-            _moves.Push(move);
-            
-            _board.Move(move);
         }
         
         return _moves.ToList();
