@@ -10,7 +10,7 @@ public class Solver
 
     private readonly MoveGenerator _moveGenerator;
 
-    private readonly List<Move> _moves = [];
+    private readonly Stack<Move> _moves = [];
     
     public Solver(Board board)
     {
@@ -25,16 +25,22 @@ public class Solver
 
         while (! _board.IsSolved())
         {
-            var move = _moveGenerator.GetNextMove();
+            var (canMove, move) = _moveGenerator.GetNextMove();
 
-            if (! move.CanMove)
+            if (! canMove)
             {
-                // If no more moves left, backtrack.
+                var lastMove = _moves.Pop();
+                
+                _board.Move(lastMove.Target, lastMove.Source);
+
+                continue;
             }
 
-            _board.Move(move.Move);
+            _moves.Push(move);
+            
+            _board.Move(move);
         }
         
-        return _moves;
+        return _moves.ToList();
     }
 }
