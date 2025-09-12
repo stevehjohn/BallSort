@@ -31,7 +31,7 @@ public class Solver
 
         _visited.Add(_boardHasher.GetHash());
 
-        while (! _board.IsSolved())
+        while (true)
         {
             if (ExploreMoves(_moveGenerator.GetMoves()))
             {
