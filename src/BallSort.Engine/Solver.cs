@@ -29,6 +29,8 @@ public class Solver
     {
         _moves.Clear();
 
+        _visited.Add(_boardHasher.GetHash());
+
         while (! _board.IsSolved())
         {
             ExploreMoves(_moveGenerator.GetMoves());
