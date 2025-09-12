@@ -28,6 +28,8 @@ public class Solver
     public (bool Solved, List<Move> Moves) Solve()
     {
         _moves.Clear();
+        
+        _visited.Clear();
 
         _visited.Add(_boardHasher.GetHash());
 
