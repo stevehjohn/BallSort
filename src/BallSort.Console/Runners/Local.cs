@@ -10,9 +10,9 @@ public class Local
 {
     public void Run(LocalOptions options)
     {
-        PuzzleManager.Path = "Data/Puzzles.json";
+        var puzzleManager = new PuzzleManager("Data/Puzzles.json");
         
-        var board = PuzzleManager.Instance.GetPuzzle(options.PuzzleNumber);
+        var board = puzzleManager.GetPuzzle(options.PuzzleNumber);
         
         Clear();
         
