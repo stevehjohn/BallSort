@@ -53,7 +53,7 @@ public class Board
         }
     }
 
-    public void Move(Move move)
+    public void Move(Move move, bool force = false)
     {
         var source = move.Source;
 
@@ -77,7 +77,7 @@ public class Board
 
         var targetBall = Top(target);
 
-        if (targetBall != Colour.Empty && sourceBall != targetBall)
+        if (! force && targetBall != Colour.Empty && sourceBall != targetBall)
         {
             throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
         }
@@ -88,16 +88,16 @@ public class Board
 
     }
 
-    public void Move(int source, int target)
+    public void Move(int source, int target, bool force = false)
     {
-        Move(new Move(source, target));
+        Move(new Move(source, target), force);
     }
 
     public void UndoLastMove()
     {
         if (_lastMove.HasValue)
         {
-            Move(_lastMove.Value.Target, _lastMove.Value.Source);
+            Move(_lastMove.Value.Target, _lastMove.Value.Source, true);
         }
     }
 
@@ -228,6 +228,14 @@ public class Board
 
     public bool IsSolved()
     {
+        for (var x = 0; x < Width; x++)
+        {
+            if (! IsComplete(x))
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 

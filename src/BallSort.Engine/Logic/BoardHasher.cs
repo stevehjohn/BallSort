@@ -25,6 +25,8 @@ public class BoardHasher
             {
                 hash[i] = (byte) column[y];
             }
+
+            i++;
         }
 
         return hash;
