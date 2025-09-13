@@ -42,15 +42,40 @@ public class MoveGenerator
     private List<Move> GetMoves(Colour ball, int source)
     {
         var moves = new List<Move>();
-        
-        for (var x = 0; x < _board.Width; x++)
+
+        var move = CheckForCompletion(ball, source);
+
+        if (move != Move.NullMove)
         {
-            if (x == source || _board.IsFull(x))
-            {
-                continue;
-            }
+            moves.Add(move);
         }
 
         return moves;
     }
+
+    private Move CheckForCompletion(Colour ball, int source)
+    {
+        for (var x = 0; x < _board.Width; x++)
+        {
+            if (x == source)
+            {
+                continue;
+            }
+
+            if (_board.Top(x) == ball && _board.TopRunLength(x) == _board.Height - 1)
+            {
+                return new Move(source, x);
+            }
+        }
+        
+        return Move.NullMove;
+    }
+
+    // for (var x = 0; x < _board.Width; x++)
+    // {
+    //     if (x == source || _board.IsFull(x))
+    //     {
+    //         continue;
+    //     }
+    // }
 }
