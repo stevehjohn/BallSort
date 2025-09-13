@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text.Json;
 using BallSort.Engine.Game;
 using BallSort.Engine.Models;
@@ -6,7 +7,7 @@ namespace BallSort.Engine.Infrastructure;
 
 public class PuzzleManager
 {
-    private readonly List<Board> _puzzles;
+    private readonly ImmutableArray<Board> _puzzles;
 
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
@@ -26,13 +27,15 @@ public class PuzzleManager
 
         var puzzles = JsonSerializer.Deserialize<Puzzle[]>(puzzleJson, JsonSerializerOptions);
 
-        _puzzles = new List<Board>();
-
+        var builder = ImmutableArray.CreateBuilder<Board>();
+        
         foreach (var puzzle in puzzles)
         {
             var board = new Board(puzzle);
 
-            _puzzles.Add(board);
+            builder.Add(board);
         }
+
+        _puzzles = builder.ToImmutable();
     }
 }
