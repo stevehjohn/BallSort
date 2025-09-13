@@ -25,7 +25,7 @@ public class PuzzleManager
         {
             _path = value;
             
-            _lazy = new Lazy<PuzzleManager>(GetPuzzleManager, LazyThreadSafetyMode.PublicationOnly);
+            _lazy = new Lazy<PuzzleManager>(GetPuzzleManager, LazyThreadSafetyMode.ExecutionAndPublication);
         }
     }
 
@@ -37,7 +37,7 @@ public class PuzzleManager
 
     private static PuzzleManager GetPuzzleManager()
     {
-        if (_path == null)
+        if (string.IsNullOrWhiteSpace(_path))
         {
             throw new InvalidOperationException("Please set the Path property before using the PuzzleManager.");
         }
