@@ -34,7 +34,7 @@ public class PuzzleManagerTests
         Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(7)));
     }
 
-    [Fact]
+    // [Fact]
     // public void GetPuzzleThrowsWhenPathNotSet()
     // {
     //     PuzzleManager.Path = null;
