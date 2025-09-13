@@ -27,7 +27,7 @@ public class PuzzleManager
 
         var puzzles = JsonSerializer.Deserialize<Puzzle[]>(puzzleJson, JsonSerializerOptions);
 
-        var builder = ImmutableArray.CreateBuilder<Board>();
+        var builder = ImmutableArray.CreateBuilder<Board>(puzzles.Length);
         
         foreach (var puzzle in puzzles)
         {
