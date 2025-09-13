@@ -20,6 +20,11 @@ public class MoveGenerator
         {
             var ball = _board.Top(x);
 
+            if (ball == Colour.Empty)
+            {
+                continue;
+            }
+
             var newMoves = GetMoves(ball, x);
 
             foreach (var move in newMoves)
@@ -29,8 +34,6 @@ public class MoveGenerator
                     moves.Add(move);
                 }
             }
-            
-            moves.AddRange(newMoves);
         }
 
         return moves;
