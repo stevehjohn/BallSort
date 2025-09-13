@@ -165,6 +165,13 @@ public class Board
         return _columns[column].Count == 0;
     }
 
+    public int BallCount(int column)
+    {
+        Guard(column);
+
+        return _columns[column].Count;
+    }
+
     public Colour Top(int column)
     {
         Guard(column);

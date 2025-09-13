@@ -54,13 +54,18 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
-        
-        move = CheckForEmpty(source);
+
+        if (_board.BallCount(source) != 1)
+        {
+            move = CheckForEmpty(source);
+        }
 
         if (move != Move.NullMove)
         {
             moves.Add(move);
         }
+        
+        moves.AddRange(CheckForMerges(ball, source));
 
         return moves;
     }
@@ -74,7 +79,7 @@ public class MoveGenerator
                 continue;
             }
 
-            if (_board.Top(x) == ball && _board.TopRunLength(x) == _board.Height - 1)
+            if (_board.Top(x) == ball && _board.Capacity(x) == 1)
             {
                 return new Move(source, x);
             }
@@ -95,12 +100,24 @@ public class MoveGenerator
         
         return Move.NullMove;
     }
+    
+    private List<Move> CheckForMerges(Colour ball, int source)
+    {
+        var moves = new List<Move>();
+        
+        for (var x = 0; x < _board.Width; x++)
+        {
+            if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1)
+            {
+                continue;
+            }
 
-    // for (var x = 0; x < _board.Width; x++)
-    // {
-    //     if (x == source || _board.IsFull(x))
-    //     {
-    //         continue;
-    //     }
-    // }
+            if (_board.Top(x) == ball)
+            {
+                moves.Add(new Move(source, x));
+            }
+        }
+        
+        return moves;
+    }
 }
