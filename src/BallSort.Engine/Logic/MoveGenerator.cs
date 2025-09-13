@@ -54,6 +54,8 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
+        
+        moves.AddRange(CheckForMerges(ball, source));
 
         if (_board.BallCount(source) != 1)
         {
@@ -64,8 +66,6 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
-        
-        moves.AddRange(CheckForMerges(ball, source));
 
         return moves;
     }
