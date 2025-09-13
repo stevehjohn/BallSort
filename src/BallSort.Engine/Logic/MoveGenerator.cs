@@ -7,6 +7,8 @@ public class MoveGenerator
 {
     private readonly Board _board;
 
+    private int _moveId;
+
     public MoveGenerator(Board board)
     {
         _board = board;
@@ -34,7 +36,7 @@ public class MoveGenerator
 
             foreach (var move in newMoves)
             {
-                if (move.Source != lastMove.Target && move.Target != lastMove.Source)
+                if (! (move.Source == lastMove.Target && move.Target != lastMove.Source))
                 {
                     moves.Add(move);
                 }
@@ -81,7 +83,7 @@ public class MoveGenerator
 
             if (_board.Top(x) == ball && _board.Capacity(x) == 1)
             {
-                return new Move(source, x);
+                return new Move(source, x, ++_moveId);
             }
         }
         
@@ -94,7 +96,7 @@ public class MoveGenerator
         {
             if (_board.IsEmpty(x))
             {
-                return new Move(source, x);
+                return new Move(source, x, ++_moveId);
             }
         }
         
@@ -104,7 +106,7 @@ public class MoveGenerator
     private List<Move> CheckForMerges(Colour ball, int source)
     {
         var moves = new List<Move>();
-
+        
         for (var i = _board.Height - 2; i > 0; i--)
         {
             for (var x = 0; x < _board.Width; x++)
@@ -116,7 +118,7 @@ public class MoveGenerator
 
                 if (_board.Top(x) == ball && _board.TopRunLength(x) == i)
                 {
-                    moves.Add(new Move(source, x));
+                    moves.Add(new Move(source, x, ++_moveId));
                 }
             }
         }

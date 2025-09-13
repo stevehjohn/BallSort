@@ -24,9 +24,9 @@ public class BoardHasher
             for (var y = 0; y < _board.Height; y++)
             {
                 hash[i] = (byte) column[y];
-            }
 
-            i++;
+                i++;
+            }
         }
 
         return hash;

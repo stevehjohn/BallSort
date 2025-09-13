@@ -63,23 +63,23 @@ public class Board
 
         if (_columns[source].Count == 0)
         {
-            throw new InvalidMoveException($"Source column {source} contains is empty.");
+            throw new InvalidMoveException($"Source column {source} is empty. Move id {move.Id}.");
         }
 
         var sourceBall = _columns[source].Peek();
 
-        Guard(target,  "Target column {column} is out of bounds.");
+        Guard(target,  $"Target column {move.Target} is out of bounds. Move id {move.Id}.");
 
         if (Height - _columns[target].Count == 0)
         {
-            throw new InvalidMoveException($"Target column {target} is full.");
+            throw new InvalidMoveException($"Target column {target} is full. Move id {move.Id}.");
         }
 
         var targetBall = Top(target);
 
         if (! force && targetBall != Colour.Empty && sourceBall != targetBall)
         {
-            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}.");
+            throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}. Move id {move.Id}.");
         }
 
         _columns[target].Push(_columns[source].Pop());

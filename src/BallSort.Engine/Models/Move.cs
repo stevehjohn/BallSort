@@ -7,11 +7,22 @@ public readonly record struct Move
     public int Source { get; }
 
     public int Target { get; }
+    
+    public int Id { get; }
 
     public Move(int source, int target)
     {
         Source = source;
         
         Target = target;
+    }
+
+    public Move(int source, int target, int id)
+    {
+        Source = source;
+        
+        Target = target;
+        
+        Id = id;
     }
 }
