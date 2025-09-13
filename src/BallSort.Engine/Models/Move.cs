@@ -2,7 +2,7 @@ namespace BallSort.Engine.Models;
 
 public readonly record struct Move
 {
-    public static Move NullMove = new Move(-1, -1);
+    public static Move NullMove = new(-1, -1);
     
     public int Source { get; }
 
