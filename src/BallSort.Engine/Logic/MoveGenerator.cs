@@ -45,7 +45,7 @@ public class MoveGenerator
         
         for (var x = 0; x < _board.Width; x++)
         {
-            if (x == source)
+            if (x == source || _board.IsFull(x))
             {
                 continue;
             }
