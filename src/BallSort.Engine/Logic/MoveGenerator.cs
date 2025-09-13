@@ -104,20 +104,23 @@ public class MoveGenerator
     private List<Move> CheckForMerges(Colour ball, int source)
     {
         var moves = new List<Move>();
-        
-        for (var x = 0; x < _board.Width; x++)
-        {
-            if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1)
-            {
-                continue;
-            }
 
-            if (_board.Top(x) == ball)
+        for (var i = _board.Height - 2; i > 0; i--)
+        {
+            for (var x = 0; x < _board.Width; x++)
             {
-                moves.Add(new Move(source, x));
+                if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1)
+                {
+                    continue;
+                }
+
+                if (_board.Top(x) == ball && _board.TopRunLength(x) == i)
+                {
+                    moves.Add(new Move(source, x));
+                }
             }
         }
-        
+
         return moves;
     }
 }
