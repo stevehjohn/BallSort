@@ -49,6 +49,13 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
+        
+        move = CheckForEmpty(source);
+
+        if (move != Move.NullMove)
+        {
+            moves.Add(move);
+        }
 
         return moves;
     }
@@ -63,6 +70,19 @@ public class MoveGenerator
             }
 
             if (_board.Top(x) == ball && _board.TopRunLength(x) == _board.Height - 1)
+            {
+                return new Move(source, x);
+            }
+        }
+        
+        return Move.NullMove;
+    }
+
+    private Move CheckForEmpty(int source)
+    {
+        for (var x = 0; x < _board.Width; x++)
+        {
+            if (_board.IsEmpty(x))
             {
                 return new Move(source, x);
             }
