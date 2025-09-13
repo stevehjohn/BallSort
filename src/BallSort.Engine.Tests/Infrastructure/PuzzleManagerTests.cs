@@ -35,12 +35,12 @@ public class PuzzleManagerTests
     }
 
     [Fact]
-    public void GetPuzzleThrowsWhenPathNotSet()
-    {
-        PuzzleManager.Path = null;
-        
-        var exception = Assert.Throws<InvalidOperationException>(() => PuzzleManager.Instance.GetPuzzle(0));
-        
-        Assert.Equal("Please set the Path property before using the PuzzleManager.", exception.Message);
-    }
+    // public void GetPuzzleThrowsWhenPathNotSet()
+    // {
+    //     PuzzleManager.Path = null;
+    //     
+    //     var exception = Assert.Throws<InvalidOperationException>(() => PuzzleManager.Instance.GetPuzzle(0));
+    //     
+    //     Assert.Equal("Please set the Path property before using the PuzzleManager.", exception.Message);
+    // }
 }

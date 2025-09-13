@@ -38,6 +38,8 @@ public class MoveGenerator
 
     private List<Move> GetMoves(Colour ball, int source)
     {
+        var moves = new List<Move>();
+        
         for (var x = 0; x < _board.Width; x++)
         {
             if (x == source)
@@ -46,6 +48,6 @@ public class MoveGenerator
             }
         }
 
-        return null;
+        return moves;
     }
 }
