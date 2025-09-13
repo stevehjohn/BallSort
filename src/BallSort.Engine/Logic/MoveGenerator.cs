@@ -25,6 +25,11 @@ public class MoveGenerator
                 continue;
             }
 
+            if (_board.IsComplete(x))
+            {
+                continue;
+            }
+
             var newMoves = GetMoves(ball, x);
 
             foreach (var move in newMoves)
