@@ -9,9 +9,9 @@ public class PuzzleManagerTests
     [Fact]
     public void GetPuzzleReturnsExpectedBoard()
     {
-        PuzzleManager.Path = "Test Data/Puzzles.json";
-        
-        var board = PuzzleManager.Instance.GetPuzzle(0);
+        var puzzleManager = new PuzzleManager("Test Data/Puzzles.json");
+
+        var board = puzzleManager.GetPuzzle(0);
         
         Assert.Equal(8, board.Width);
         
@@ -34,13 +34,11 @@ public class PuzzleManagerTests
         Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(7)));
     }
 
-    // [Fact]
-    // public void GetPuzzleThrowsWhenPathNotSet()
-    // {
-    //     PuzzleManager.Path = null;
-    //     
-    //     var exception = Assert.Throws<InvalidOperationException>(() => PuzzleManager.Instance.GetPuzzle(0));
-    //     
-    //     Assert.Equal("Please set the Path property before using the PuzzleManager.", exception.Message);
-    // }
+    [Fact]
+    public void ConstructorThrowsWhenPathNotSet()
+    {
+        var exception = Assert.Throws<InvalidOperationException>(() => new PuzzleManager(string.Empty));
+        
+        Assert.Equal("Please pass in a valid path.", exception.Message);
+    }
 }
