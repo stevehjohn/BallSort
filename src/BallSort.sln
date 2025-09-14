@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F69D06F5-7B11-4061-87C4-1733E0E85C12}"
 	ProjectSection(SolutionItems) = preProject
 		..\run-console.sh = ..\run-console.sh
+		..\test.sh = ..\test.sh
 	EndProjectSection
 EndProject
 Global
