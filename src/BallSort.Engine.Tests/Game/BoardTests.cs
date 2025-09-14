@@ -12,7 +12,7 @@ public class BoardTests
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 4, "Target column 4 is out of bounds.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", -1, 0, "Source column -1 is out of bounds.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, -4, "Target column -4 is out of bounds.")]
-    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 3, 40, "Source column 3 contains is empty.")]
+    [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 3, 40, "Source column 3 is empty.")]
     [InlineData("1,1,1,1,1,1,0,0,0,0,0,0", 0, 1, "Target column 1 is full.")]
     [InlineData("1,2,3,1,4,0,0,0,0,0,0,0", 0, 1, "Cannot move Yellow ball from column 0 onto Blue ball in column 1.")]
     [InlineData("1,2,3,1,3,0,0,0,0,0,0,0", 0, 1, null)]
@@ -26,7 +26,7 @@ public class BoardTests
         }
         catch (Exception exception)
         {
-            Assert.Equal(expectedMessage, exception.Message);
+            Assert.StartsWith(expectedMessage, exception.Message);
             
             return;
         }

@@ -6,7 +6,7 @@ namespace BallSort.Engine.Tests;
 public class SolverTests
 {
     [Fact]
-    public void TestStub()
+    public void SolveReturnsASolution()
     {
         var puzzleManager = new PuzzleManager("Test Data/Puzzles.json");
 
