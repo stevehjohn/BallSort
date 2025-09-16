@@ -28,7 +28,7 @@ public class SolverTests
         }
     }
 
-    private void DumpBoard(Board board)
+    private static void DumpBoard(Board board)
     {
         Console.WriteLine();
         
