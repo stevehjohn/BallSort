@@ -2,11 +2,19 @@ using System.Text;
 using BallSort.Engine.Game;
 using BallSort.Engine.Infrastructure;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace BallSort.Engine.Tests;
 
 public class SolverTests
 {
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public SolverTests(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
     [Fact]
     public void SolveReturnsASolution()
     {
@@ -25,10 +33,12 @@ public class SolverTests
             Assert.True(result.Solved);
             
             DumpBoard(board);
+            
+            _testOutputHelper.WriteLine($"  Steps: {result.Moves.Count}.");
         }
     }
 
-    private static void DumpBoard(Board board)
+    private void DumpBoard(Board board)
     {
         Console.WriteLine();
         
@@ -48,7 +58,7 @@ public class SolverTests
                 builder.Append((char) ('@' + (int) columns[x][y]));
             }
 
-            Console.WriteLine($"  {builder}");
+            _testOutputHelper.WriteLine($"  {builder}");
 
             builder.Clear();
         }

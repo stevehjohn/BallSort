@@ -1,1 +1,1 @@
-dotnet test src
+dotnet test -l "console;verbosity=detailed" src
