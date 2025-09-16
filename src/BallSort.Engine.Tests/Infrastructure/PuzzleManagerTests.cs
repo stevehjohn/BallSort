@@ -11,7 +11,7 @@ public class PuzzleManagerTests
     {
         var puzzleManager = new PuzzleManager("Test Data/Puzzles.json");
 
-        var board = puzzleManager.GetPuzzle(0);
+        var board = puzzleManager.GetPuzzle(1);
         
         Assert.Equal(8, board.Width);
         
