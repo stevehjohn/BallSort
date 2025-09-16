@@ -14,6 +14,8 @@ public class PuzzleManager
         PropertyNameCaseInsensitive = true
     };
 
+    public int PuzzleCount => _puzzles.Length;
+
     public Board GetPuzzle(int puzzleNumber) => _puzzles[puzzleNumber].Clone();
 
     public PuzzleManager(string path)

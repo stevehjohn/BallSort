@@ -10,20 +10,15 @@ public class SolverTests
     {
         var puzzleManager = new PuzzleManager("Test Data/Puzzles.json");
 
-        var board = puzzleManager.GetPuzzle(0);
-        
-        var solver = new Solver(board);
-
-        try
+        for (var i = 0; i < puzzleManager.PuzzleCount; i++)
         {
-            solver.Solve();
-        }
-        catch (Exception exception)
-        {
-            // ReSharper disable once Xunit.XunitTestWithConsoleOutput
-            Console.WriteLine(exception.Message);
-        }
+            var board = puzzleManager.GetPuzzle(i);
 
-        // Assert.True(result.Solved);
+            var solver = new Solver(board);
+
+            var result = solver.Solve();
+
+            Assert.True(result.Solved);
+        }
     }
 }

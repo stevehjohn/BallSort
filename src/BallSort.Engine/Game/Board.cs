@@ -230,6 +230,11 @@ public class Board
     {
         for (var x = 0; x < Width; x++)
         {
+            if (IsEmpty(x))
+            {
+                continue;
+            }
+
             if (! IsComplete(x))
             {
                 return false;
