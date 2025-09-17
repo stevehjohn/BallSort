@@ -55,7 +55,16 @@ public class SolverTests
         {
             for (var x = 0; x < board.Width; x++)
             {
-                builder.Append((char) ('@' + (int) columns[x][y]));
+                var ball = columns[x][y];
+
+                if (ball == Colour.Empty)
+                {
+                    builder.Append('-');
+                }
+                else
+                {
+                    builder.Append((char) ('@' + (int) columns[x][y]));
+                }
             }
 
             _testOutputHelper.WriteLine($"  {builder}");
