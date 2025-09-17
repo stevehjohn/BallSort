@@ -40,7 +40,7 @@ public class SolverTests
 
     private void DumpBoard(Board board)
     {
-        Console.WriteLine();
+        _testOutputHelper.WriteLine(string.Empty);
         
         var builder = new StringBuilder();
 
