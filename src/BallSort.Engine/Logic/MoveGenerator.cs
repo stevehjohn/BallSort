@@ -111,7 +111,7 @@ public class MoveGenerator
         {
             for (var x = 0; x < _board.Width; x++)
             {
-                if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1)
+                if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1 || _board.IsComplete(x))
                 {
                     continue;
                 }
