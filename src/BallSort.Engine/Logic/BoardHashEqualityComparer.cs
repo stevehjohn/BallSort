@@ -14,7 +14,7 @@ public class BoardHashEqualityComparer : IEqualityComparer<byte[]>
             return false;
         }
 
-        for (int i = 0; i < x.Length; i++)
+        for (var i = 0; i < x.Length; i++)
         {
             if (x[i] != y[i])
             {
