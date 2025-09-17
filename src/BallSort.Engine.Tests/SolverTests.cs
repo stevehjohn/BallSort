@@ -34,6 +34,8 @@ public class SolverTests
             
             DumpBoard(board);
             
+            _testOutputHelper.WriteLine(string.Empty);
+        
             _testOutputHelper.WriteLine($"  Steps: {result.Moves.Count}.");
         }
     }
