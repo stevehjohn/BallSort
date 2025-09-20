@@ -17,7 +17,7 @@ public class MoveGenerator
     public List<Move> GetMoves(Move lastMove)
     {
         var moves = new List<Move>();
-        
+
         for (var x = 0; x < _board.Width; x++)
         {
             var ball = _board.Top(x);
@@ -36,7 +36,7 @@ public class MoveGenerator
 
             foreach (var move in newMoves)
             {
-                if (! (move.Source == lastMove.Target && move.Target != lastMove.Source))
+                if (! (move.Source == lastMove.Target && move.Target == lastMove.Source))
                 {
                     moves.Add(move);
                 }
@@ -56,7 +56,7 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
-        
+
         moves.AddRange(CheckForMerges(ball, source));
 
         if (_board.BallCount(source) != 1)
@@ -86,7 +86,7 @@ public class MoveGenerator
                 return new Move(source, x, ++_moveId);
             }
         }
-        
+
         return Move.NullMove;
     }
 
@@ -99,14 +99,14 @@ public class MoveGenerator
                 return new Move(source, x, ++_moveId);
             }
         }
-        
+
         return Move.NullMove;
     }
-    
+
     private List<Move> CheckForMerges(Colour ball, int source)
     {
         var moves = new List<Move>();
-        
+
         for (var i = _board.Height - 2; i > 0; i--)
         {
             for (var x = 0; x < _board.Width; x++)
