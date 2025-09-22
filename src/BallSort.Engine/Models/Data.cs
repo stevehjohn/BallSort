@@ -7,5 +7,5 @@ namespace BallSort.Engine.Models;
 [UsedImplicitly]
 public class Data
 {
-    public int[] Layout { get; set; } = [];
+    public int[] Layout { get; init; } = [];
 }

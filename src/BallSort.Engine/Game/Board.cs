@@ -11,7 +11,7 @@ public class Board
 
     private readonly HashSet<Colour> _colours = [];
 
-    private Stack<Move> _history = [];
+    private readonly Stack<Move> _history = [];
     
     public int Width { get; private init; }
 

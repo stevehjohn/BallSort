@@ -6,9 +6,9 @@ using static System.Console;
 
 namespace BallSort.Console.Runners;
 
-public class Local
+public static class Local
 {
-    public void Run(LocalOptions options)
+    public static void Run(LocalOptions options)
     {
         var puzzleManager = new PuzzleManager("Data/Puzzles.json");
         
