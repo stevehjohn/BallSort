@@ -13,6 +13,4 @@ public class Puzzle
     public int GridHeight { get; set; }
     
     public Data Data { get; set; }
-    
-    public Source Source { get; set; }
 }
