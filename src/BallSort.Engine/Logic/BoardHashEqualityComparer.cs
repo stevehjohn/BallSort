@@ -1,8 +1,8 @@
 namespace BallSort.Engine.Logic;
 
-public class BoardHashEqualityComparer : IEqualityComparer<byte[]>
+public class BoardHashEqualityComparer : IEqualityComparer<UInt128[]>
 {
-    public bool Equals(byte[] x, byte[] y)
+    public bool Equals(UInt128[] x, UInt128[] y)
     {
         if (x == null || y == null)
         {
@@ -25,7 +25,7 @@ public class BoardHashEqualityComparer : IEqualityComparer<byte[]>
         return true;
     }
 
-    public int GetHashCode(byte[] source)
+    public int GetHashCode(UInt128[] source)
     {
         unchecked
         {
@@ -33,7 +33,10 @@ public class BoardHashEqualityComparer : IEqualityComparer<byte[]>
 
             foreach (var b in source)
             {
-                hash = hash * 31 + b;
+                hash = hash * 31 + (int) b;
+                hash = hash * 31 + (int) (b >> 32);
+                hash = hash * 31 + (int) (b >> 64);
+                hash = hash * 31 + (int) (b >> 96);
             }
 
             return hash;

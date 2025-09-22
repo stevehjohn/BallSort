@@ -11,24 +11,20 @@ public class BoardHasher
         _board = board;
     }
 
-    public byte[] GetHash()
+    public UInt128[] GetHash()
     {
-        var hash = new byte[_board.Width * _board.Height];
+        var hash = new UInt128[_board.Width];
 
-        var i = 0;
-        
         for (var x = 0; x < _board.Width; x++)
         {
             var column = _board.GetColumn(x);
 
             for (var y = 0; y < _board.Height; y++)
             {
-                hash[i] = (byte) column[y];
-
-                i++;
+                hash[x] |= (UInt128) (byte) column[y] << (y * 5);
             }
         }
 
-        return hash;
+        return hash.OrderBy(h => h).ToArray();
     }
 }
