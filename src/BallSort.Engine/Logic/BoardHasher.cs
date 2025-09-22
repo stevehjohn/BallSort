@@ -25,6 +25,8 @@ public class BoardHasher
             }
         }
 
-        return hash.OrderBy(h => h).ToArray();
+        Array.Sort(hash);
+        
+        return hash;
     }
 }
