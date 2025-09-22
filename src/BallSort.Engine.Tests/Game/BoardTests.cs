@@ -41,7 +41,7 @@ public class BoardTests
     {
         var board = layout.BoardFromLayout(4, 3);
         
-        Assert.Equal(expected, string.Join(',', board.GetColumn(column)));
+        Assert.Equal(expected, string.Join(',', board.GetColumn(column).ToArray()));
     }
 
     [Theory]
@@ -91,23 +91,23 @@ public class BoardTests
         
         Assert.Equal(3, clone.Height);
 
-        Assert.Equal("Red,Green,Yellow", string.Join(',', clone.GetColumn(0)));
+        Assert.Equal("Red,Green,Yellow", string.Join(',', clone.GetColumn(0).ToArray()));
 
-        Assert.Equal("Blue,Orange,DarkPurple", string.Join(',', clone.GetColumn(1)));
+        Assert.Equal("Blue,Orange,DarkPurple", string.Join(',', clone.GetColumn(1).ToArray()));
 
-        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(2)));
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(2).ToArray()));
 
-        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(3)));
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', clone.GetColumn(3).ToArray()));
         
         clone.Move(0, 2);
         
-        Assert.Equal("Red,Green,Yellow", string.Join(',', board.GetColumn(0)));
+        Assert.Equal("Red,Green,Yellow", string.Join(',', board.GetColumn(0).ToArray()));
         
-        Assert.Equal("Empty,Empty,Empty", string.Join(',', board.GetColumn(2)));
+        Assert.Equal("Empty,Empty,Empty", string.Join(',', board.GetColumn(2).ToArray()));
         
-        Assert.Equal("Red,Green,Empty", string.Join(',', clone.GetColumn(0)));
+        Assert.Equal("Red,Green,Empty", string.Join(',', clone.GetColumn(0).ToArray()));
         
-        Assert.Equal("Yellow,Empty,Empty", string.Join(',', clone.GetColumn(2)));
+        Assert.Equal("Yellow,Empty,Empty", string.Join(',', clone.GetColumn(2).ToArray()));
     }
 
     [Theory]

@@ -71,7 +71,7 @@ public class SolverTests
         
         for (var x = 0; x < board.Width; x++)
         {
-            columns.Add(board.GetColumn(x));
+            columns.Add(board.GetColumn(x).ToArray());
         }
 
         for (var y = 0; y < board.Height; y++)

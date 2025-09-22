@@ -119,7 +119,7 @@ public class Board
         return board;
     }
 
-    public Colour[] GetColumn(int column)
+    public ReadOnlySpan<Colour> GetColumn(int column)
     {
         Guard(column);
 

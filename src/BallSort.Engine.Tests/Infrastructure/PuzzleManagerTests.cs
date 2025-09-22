@@ -17,21 +17,21 @@ public class PuzzleManagerTests
         
         Assert.Equal(4, board.Height);
         
-        Assert.Equal("Yellow,Green,Orange,Yellow", string.Join(',', board.GetColumn(0)));
+        Assert.Equal("Yellow,Green,Orange,Yellow", string.Join(',', board.GetColumn(0).ToArray()));
         
-        Assert.Equal("Green,Red,Yellow,Orange", string.Join(',', board.GetColumn(1)));
+        Assert.Equal("Green,Red,Yellow,Orange", string.Join(',', board.GetColumn(1).ToArray()));
         
-        Assert.Equal("Blue,Green,DarkPurple,Blue", string.Join(',', board.GetColumn(2)));
+        Assert.Equal("Blue,Green,DarkPurple,Blue", string.Join(',', board.GetColumn(2).ToArray()));
         
-        Assert.Equal("DarkPurple,Blue,Red,Red", string.Join(',', board.GetColumn(3)));
+        Assert.Equal("DarkPurple,Blue,Red,Red", string.Join(',', board.GetColumn(3).ToArray()));
         
-        Assert.Equal("Orange,Red,Yellow,DarkPurple", string.Join(',', board.GetColumn(4)));
+        Assert.Equal("Orange,Red,Yellow,DarkPurple", string.Join(',', board.GetColumn(4).ToArray()));
         
-        Assert.Equal("DarkPurple,Orange,Blue,Green", string.Join(',', board.GetColumn(5)));
+        Assert.Equal("DarkPurple,Orange,Blue,Green", string.Join(',', board.GetColumn(5).ToArray()));
         
-        Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(6)));
+        Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(6).ToArray()));
         
-        Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(7)));
+        Assert.Equal("Empty,Empty,Empty,Empty", string.Join(',', board.GetColumn(7).ToArray()));
     }
 
     [Fact]
