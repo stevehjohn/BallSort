@@ -11,7 +11,7 @@ public class Board
 
     private readonly HashSet<Colour> _colours = [];
 
-    private Move? _lastMove;
+    private Stack<Move> _history = [];
     
     public int Width { get; private init; }
 
@@ -84,8 +84,7 @@ public class Board
 
         _columns[target].Push(_columns[source].Pop());
 
-        _lastMove = new Move(source, target);
-
+        _history.Push(new Move(source, target));
     }
 
     public void Move(int source, int target, bool force = false)
@@ -95,9 +94,11 @@ public class Board
 
     public void UndoLastMove()
     {
-        if (_lastMove.HasValue)
+        if (_history.Count > 0)
         {
-            Move(_lastMove.Value.Target, _lastMove.Value.Source, true);
+            var lastMove = _history.Pop();
+            
+            Move(lastMove.Target, lastMove.Source, true);
         }
     }
 
