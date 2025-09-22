@@ -59,7 +59,7 @@ public class MoveGenerator
 
         moves.AddRange(CheckForMerges(ball, source));
 
-        if (_board.BallCount(source) != 1)
+        if (_board.BallCount(source) > 1)
         {
             move = CheckForEmpty(source);
         }
