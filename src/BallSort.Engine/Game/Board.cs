@@ -53,7 +53,7 @@ public class Board
         }
     }
 
-    public void Move(Move move, bool force = false)
+    public void Move(Move move)
     {
         var source = move.Source;
 
@@ -77,22 +77,19 @@ public class Board
 
         var targetBall = Top(target);
 
-        if (! force && targetBall != Colour.Empty && sourceBall != targetBall)
+        if (targetBall != Colour.Empty && sourceBall != targetBall)
         {
             throw new InvalidMoveException($"Cannot move {sourceBall.ToHumanReadable()} ball from column {source} onto {targetBall.ToHumanReadable()} ball in column {target}. Move id {move.Id}.");
         }
 
         _columns[target].Push(_columns[source].Pop());
 
-        if (! force)
-        {
-            _history.Push(new Move(source, target));
-        }
+        _history.Push(new Move(source, target));
     }
 
-    public void Move(int source, int target, bool force = false)
+    public void Move(int source, int target)
     {
-        Move(new Move(source, target), force);
+        Move(new Move(source, target));
     }
 
     public void UndoLastMove()
@@ -100,8 +97,8 @@ public class Board
         if (_history.Count > 0)
         {
             var lastMove = _history.Pop();
-            
-            Move(lastMove.Target, lastMove.Source, true);
+
+            _columns[lastMove.Source].Push(_columns[lastMove.Target].Pop());
         }
     }
 
