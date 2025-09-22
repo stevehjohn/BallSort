@@ -68,7 +68,7 @@ public class MoveGenerator
         {
             moves.Add(move);
         }
-
+        
         return moves;
     }
 
