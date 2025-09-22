@@ -11,9 +11,9 @@ public class BoardHasher
         _board = board;
     }
 
-    public UInt128[] GetHash()
+    public ulong[] GetHash()
     {
-        var hash = new UInt128[_board.Width];
+        var hash = new ulong[_board.Width];
 
         for (var x = 0; x < _board.Width; x++)
         {
@@ -21,7 +21,7 @@ public class BoardHasher
 
             for (var y = 0; y < _board.Height; y++)
             {
-                hash[x] |= (UInt128) (byte) column[y] << (y * 5);
+                hash[x] |= (ulong) column[y] << (y * 5);
             }
         }
 

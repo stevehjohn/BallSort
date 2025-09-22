@@ -14,7 +14,7 @@ public class Solver
 
     private readonly Stack<Move> _moves = [];
     
-    private readonly HashSet<UInt128[]> _visited = new(new BoardHashEqualityComparer());
+    private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
 
     public Solver(Board board)
     {

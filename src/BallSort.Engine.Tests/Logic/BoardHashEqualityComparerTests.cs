@@ -8,9 +8,9 @@ public class BoardHashEqualityComparerTests
     [Fact]
     public void EqualsReturnsFalseIfLengthsAreDifferent()
     {
-        var left = new UInt128[2];
+        var left = new ulong[2];
 
-        var right = new UInt128[3];
+        var right = new ulong[3];
         
         Assert.False(new BoardHashEqualityComparer().Equals(left, right));
     }
@@ -18,9 +18,9 @@ public class BoardHashEqualityComparerTests
     [Fact]
     public void EqualsReturnsFalseIfHashesAreDifferent()
     {
-        var left = new UInt128[2];
+        var left = new ulong[2];
 
-        var right = new UInt128[2];
+        var right = new ulong[2];
 
         right[0] = 1;
         
@@ -30,7 +30,7 @@ public class BoardHashEqualityComparerTests
     [Fact]
     public void EqualsReturnsFalseIfOneIsNull()
     {
-        var left = new UInt128[2];
+        var left = new ulong[2];
         
         Assert.False(new BoardHashEqualityComparer().Equals(left, null));
     }
