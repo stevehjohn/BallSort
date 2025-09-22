@@ -119,6 +119,8 @@ public class MoveGenerator
                 if (_board.Top(x) == ball && _board.TopRunLength(x) == i)
                 {
                     moves.Add(new Move(source, x, ++_moveId));
+                    
+                    break;
                 }
             }
         }
