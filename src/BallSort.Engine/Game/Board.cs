@@ -84,7 +84,10 @@ public class Board
 
         _columns[target].Push(_columns[source].Pop());
 
-        _history.Push(new Move(source, target));
+        if (! force)
+        {
+            _history.Push(new Move(source, target));
+        }
     }
 
     public void Move(int source, int target, bool force = false)
