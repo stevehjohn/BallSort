@@ -1,6 +1,7 @@
 using System.Text;
 using BallSort.Engine.Game;
 using BallSort.Engine.Infrastructure;
+using BallSort.Engine.Models;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -38,6 +39,26 @@ public class SolverTests
         
             _testOutputHelper.WriteLine($"  Steps: {result.Moves.Count}.");
         }
+    }
+    
+    [Fact]
+    public void SolveReturnsFalseForUnsolvable()
+    {
+        var board = new Board(new Puzzle
+        {
+            Data = new Data
+            {
+                Layout = [1, 2, 3, 4, 4, 3, 2, 1, 2, 1, 3, 4, 0, 0, 0, 0]
+            },
+            GridWidth = 4,
+            GridHeight = 4
+        });
+        
+        var solver = new Solver(board);
+
+        var result = solver.Solve();
+
+        Assert.False(result.Solved);
     }
 
     private void DumpBoard(Board board)
