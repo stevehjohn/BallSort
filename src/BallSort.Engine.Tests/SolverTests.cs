@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text;
 using BallSort.Engine.Game;
 using BallSort.Engine.Infrastructure;
@@ -29,7 +30,11 @@ public class SolverTests
 
             var solver = new Solver(board);
 
+            var stopwatch = Stopwatch.StartNew();
+
             var result = solver.Solve();
+            
+            stopwatch.Stop();
 
             Assert.True(result.Solved);
             
@@ -37,7 +42,7 @@ public class SolverTests
             
             _testOutputHelper.WriteLine(string.Empty);
         
-            _testOutputHelper.WriteLine($"  Steps: {result.Moves.Count}.");
+            _testOutputHelper.WriteLine(@$"  Steps: {result.Moves.Count}. Time taken: {stopwatch.Elapsed:h\:mm\:ss\.fff}.");
         }
     }
     
