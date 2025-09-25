@@ -1,9 +1,11 @@
-﻿using BallSort.Console.Infrastructure;
+﻿using System.Diagnostics.CodeAnalysis;
+using BallSort.Console.Infrastructure;
 using BallSort.Console.Runners;
 using CommandLine;
 
 namespace BallSort.Console;
 
+[ExcludeFromCodeCoverage]
 public static class EntryPoint
 {
     public static void Main(string[] arguments)

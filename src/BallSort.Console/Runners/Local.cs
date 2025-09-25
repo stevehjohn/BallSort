@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using BallSort.Console.Infrastructure;
 using BallSort.Engine;
 using BallSort.Engine.Infrastructure;
@@ -6,6 +7,7 @@ using static System.Console;
 
 namespace BallSort.Console.Runners;
 
+[ExcludeFromCodeCoverage]
 public static class Local
 {
     public static void Run(LocalOptions options)
