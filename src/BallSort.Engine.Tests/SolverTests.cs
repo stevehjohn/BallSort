@@ -37,6 +37,11 @@ public class SolverTests
             stopwatch.Stop();
 
             Assert.True(result.Solved);
+
+            foreach (var move in result.Moves)
+            {
+                _testOutputHelper.WriteLine($"  {move.Source,2} => {move.Target,2}");
+            }
             
             DumpBoard(board);
             
