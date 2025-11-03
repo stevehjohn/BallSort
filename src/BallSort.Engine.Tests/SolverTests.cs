@@ -37,6 +37,8 @@ public class SolverTests
             stopwatch.Stop();
 
             Assert.True(result.Solved);
+            
+            _testOutputHelper.WriteLine(string.Empty);
 
             foreach (var move in result.Moves)
             {
