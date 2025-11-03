@@ -111,12 +111,17 @@ public class MoveGenerator
         {
             for (var x = 0; x < _board.Width; x++)
             {
+                if (_board.Top(x) != ball)
+                {
+                    continue;
+                }
+
                 if (! IsMergeCandidate(x, source))
                 {
                     continue;
                 }
 
-                if (_board.Top(x) == ball && _board.TopRunLength(x) == i)
+                if (_board.TopRunLength(x) == i)
                 {
                     moves.Add(new Move(source, x, ++_moveId));
                     
