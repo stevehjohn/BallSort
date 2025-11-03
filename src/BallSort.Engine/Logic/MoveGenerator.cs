@@ -62,11 +62,11 @@ public class MoveGenerator
         if (_board.BallCount(source) > 1)
         {
             move = CheckForEmpty(source);
-        }
 
-        if (move != Move.NullMove)
-        {
-            moves.Add(move);
+            if (move != Move.NullMove)
+            {
+                moves.Add(move);
+            }
         }
         
         return moves;
