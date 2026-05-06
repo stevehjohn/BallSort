@@ -18,7 +18,7 @@ public static class BoardExtensions
                 columns.Add(board.GetColumn(x).ToArray());
             }
 
-            for (var y = 0; y < board.Height; y++)
+            for (var y = board.Height - 1; y >= 0; y--)
             {
                 for (var x = 0; x < board.Width; x++)
                 {
