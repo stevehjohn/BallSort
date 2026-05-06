@@ -138,8 +138,6 @@ public class Remote
             WriteLine();
 
             WriteLine(@$"Solved in {_stopwatch.Elapsed:h\:mm\:ss\.fff}, with {_count:N0} iterations.");
-
-            WriteLine();
         }
 
         WriteLine();
