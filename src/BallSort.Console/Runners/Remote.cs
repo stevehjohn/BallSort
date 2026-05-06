@@ -137,6 +137,8 @@ public class Remote
             {
                 WriteLine($"  {move.Source + 1,2} => {move.Target + 1,2}");
             }
+            
+            WriteLine();
 
             board.Dump();
             
