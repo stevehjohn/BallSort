@@ -39,9 +39,9 @@ public class Remote
             {
                 try
                 {
-                    if (options.Date.HasValue)
+                    if (options.Year > 0)
                     {
-                        puzzle = client.GetPuzzle(options.Difficulty, options.Date.Value);
+                        puzzle = client.GetPuzzle(options.Difficulty, new DateOnly(options.Year, options.Month, options.Day));
                     }
                     else
                     {
