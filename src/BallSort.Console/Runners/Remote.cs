@@ -39,7 +39,14 @@ public class Remote
             {
                 try
                 {
-                    puzzle = client.GetNextPuzzle(options.Difficulty);
+                    if (options.Date.HasValue)
+                    {
+                        puzzle = client.GetPuzzle(options.Difficulty, options.Date.Value);
+                    }
+                    else
+                    {
+                        puzzle = client.GetNextPuzzle(options.Difficulty);
+                    }
                 }
                 catch
                 {

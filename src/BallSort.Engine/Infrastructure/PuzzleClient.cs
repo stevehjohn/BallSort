@@ -55,6 +55,27 @@ public sealed class PuzzleClient : IDisposable
         _client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
     }
     
+    public (DateOnly Date, Puzzle Puzzle)? GetPuzzle(Difficulty difficulty, DateOnly date)
+    { 
+        var year = date.Year;
+        
+        var month = date.Month;
+        
+        var day = date.Day;
+        
+        using var response = _client.GetAsync($"ballsort/{difficulty}/{year}/{month}/{day}").Result;
+            
+        var page = response.Content.ReadAsStringAsync().Result;
+
+        var puzzleJson = page[(page.IndexOf("puzzleData = ", StringComparison.InvariantCultureIgnoreCase) + 13)..];
+        
+        puzzleJson = puzzleJson[..puzzleJson.IndexOf(";", StringComparison.InvariantCultureIgnoreCase)];
+        
+        var puzzle = JsonSerializer.Deserialize<Puzzle>(puzzleJson, _jsonSerializerOptions);
+
+        return (date, puzzle);
+    }
+    
     public (DateOnly Date, Puzzle Puzzle)? GetNextPuzzle(Difficulty difficulty)
     {
         var nextPuzzleDate = GetOldestIncompletePuzzleDate(difficulty);
