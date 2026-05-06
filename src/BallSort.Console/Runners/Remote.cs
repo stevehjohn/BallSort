@@ -85,7 +85,7 @@ public class Remote
 
             WriteLine();
             
-            WriteLine($"Started: {startTime:F}, runtime: {DateTime.Now - startTime:h\\:mm\\:ss\\.fff}.");
+            WriteLine($@"Started: {startTime:F}, runtime: {DateTime.Now - startTime:h\:mm\:ss\.fff}.");
 
             WriteLine();
             
