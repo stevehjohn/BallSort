@@ -92,6 +92,11 @@ public class MoveGenerator
 
     private Move CheckForEmpty(int source)
     {
+        if (_board.TopRunLength(source) == _board.BallCount(source))
+        {
+            return Move.NullMove;
+        }
+
         for (var x = 0; x < _board.Width; x++)
         {
             if (_board.IsEmpty(x))
