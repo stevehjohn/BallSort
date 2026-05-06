@@ -20,6 +20,6 @@ public class RemoteOptions
     [Option('m', "month", Required = false, HelpText = "The month of the puzzle.")]
     public int Month { get; [UsedImplicitly] set; }
     
-    [Option('a', "day", Required = false, HelpText = "The day of the puzzle.")]
+    [Option('w', "day", Required = false, HelpText = "The day of the puzzle.")]
     public int Day { get; [UsedImplicitly] set; }
 }
