@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text;
 using System.Text.Json;
 using BallSort.Engine.Models;
 using HtmlAgilityPack;
@@ -13,8 +12,6 @@ public sealed class PuzzleClient : IDisposable
     private readonly HttpClientHandler _handler;
     
     private readonly HttpClient _client;
-
-    private readonly int _userId;
 
     private int _latestYear = 2026;
 
@@ -38,11 +35,6 @@ public sealed class PuzzleClient : IDisposable
         foreach (var line in lines)
         {
             var parts = line.Split('=');
-
-            if (parts[0].Equals("userid", StringComparison.InvariantCultureIgnoreCase))
-            {
-                _userId = int.Parse(parts[1]);
-            }
 
             cookieContainer.Add(new Uri(BaseUri), new Cookie(parts[0], parts[1]));
         }
