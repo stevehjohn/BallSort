@@ -145,6 +145,14 @@ public class MoveGenerator
             return false;
         }
 
+        var sourceRun = _board.TopRunLength(source);
+        var targetRun = _board.TopRunLength(x);
+
+        // Avoid piling a larger run onto a smaller one unless it completes the tube.
+        if (sourceRun > targetRun && sourceRun + targetRun < _board.Height)
+        {
+            return false;
+        }
+
         return true;
-    }
-}
+    }}
