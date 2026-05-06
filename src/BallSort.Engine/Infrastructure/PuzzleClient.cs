@@ -55,7 +55,7 @@ public sealed class PuzzleClient : IDisposable
         _client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
     }
     
-    public (DateOnly Date, Grid Grid, int Variant)? GetNextPuzzle(Difficulty difficulty)
+    public (DateOnly Date, Puzzle Puzzle)? GetNextPuzzle(Difficulty difficulty)
     {
         var nextPuzzleDate = GetOldestIncompletePuzzleDate(difficulty);
 
@@ -82,7 +82,7 @@ public sealed class PuzzleClient : IDisposable
         
         var puzzle = JsonSerializer.Deserialize<Puzzle>(puzzleJson, _jsonSerializerOptions);
 
-        return (nextPuzzleDate.Value, new Grid(puzzle), puzzle.Source.Variant);
+        return (nextPuzzleDate.Value, puzzle);
     }
 
     private DateOnly? GetOldestIncompletePuzzleDate(Difficulty difficulty)
