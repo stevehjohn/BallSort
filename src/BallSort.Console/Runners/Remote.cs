@@ -127,6 +127,8 @@ public class Remote
             CursorTop = _top;
 
             board.Dump();
+            
+            WriteLine();
 
             WriteLine(@$"Solved in {_stopwatch.Elapsed:h\:mm\:ss\.fff}, with {_count:N0} iterations.");
 
