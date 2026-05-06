@@ -13,11 +13,9 @@ public class Solver
     private readonly BoardHasher _boardHasher;
 
     private readonly Stack<Move> _moves = [];
-    
+
     private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
-
-    private int[] _lastChanged;
-
+    
     public Solver(Board board)
     {
         _board = board;
@@ -30,7 +28,7 @@ public class Solver
     public (bool Solved, List<Move> Moves) Solve()
     {
         _moves.Clear();
-        
+
         _visited.Clear();
 
         _visited.Add(_boardHasher.GetHash());
@@ -38,9 +36,9 @@ public class Solver
         if (Explore())
         {
             var moveList = _moves.Reverse().ToList();
-            
+
             PostProcessMoves(moveList);
-            
+
             return (true, moveList);
         }
 
@@ -74,7 +72,7 @@ public class Solver
                 {
                     return true;
                 }
-                
+
                 _moves.Pop();
             }
 
@@ -86,48 +84,65 @@ public class Solver
 
     private void PostProcessMoves(List<Move> moves)
     {
-        _lastChanged = new int[_board.Width];
-
-        while (RemoveBounces(moves)) { }
+        while (RemoveBounces(moves) || CollapseForwarding(moves)) { }
     }
-
-    private bool RemoveBounces(List<Move> moves)
+    
+    private static bool RemoveBounces(List<Move> moves)
     {
-        var first = -1;
-
-        var second = -1;
-        
-        for (var c = 0; c < moves.Count; c++)
+        for (var i = 0; i < moves.Count - 1; i++)
         {
-            var currentMove = moves[c];
+            var first = moves[i];
 
-            _lastChanged[currentMove.Source] = c;
-
-            _lastChanged[currentMove.Target] = c;
-
-            for (var p = c - 1; p >= 0; p--)
+            for (var j = i + 1; j < moves.Count; j++)
             {
-                var previousMove = moves[p];
+                var current = moves[j];
 
-                if (previousMove.Source == currentMove.Target && previousMove.Target == currentMove.Source && first == -1)
+                if (current.Source == first.Target && current.Target == first.Source)
                 {
-                    first = p;
+                    moves.RemoveAt(j);
                     
-                    continue;
+                    moves.RemoveAt(i);
+
+                    return true;
                 }
 
-                if (previousMove.Source == currentMove.Source && previousMove.Target == currentMove.Target && first > -1 && second == -1)
+                if (Touches(current, first.Source) || Touches(current, first.Target))
                 {
-                    second = p;
-                }
-
-                if (first != -1 && second != -1)
-                {
-                    moves.RemoveAt(first);
-                    
-                    moves.RemoveAt(second);
+                    break;
                 }
             }
+        }
+
+        return false;
+    }
+
+    private static bool Touches(Move move, int tube)
+    {
+        return move.Source == tube || move.Target == tube;
+    }
+    
+    private static bool CollapseForwarding(List<Move> moves)
+    {
+        for (var i = 0; i < moves.Count - 1; i++)
+        {
+            var first = moves[i];
+            var second = moves[i + 1];
+
+            if (first.Target != second.Source)
+            {
+                continue;
+            }
+
+            // A -> B, B -> A is a bounce, not forwarding.
+            if (first.Source == second.Target)
+            {
+                continue;
+            }
+
+            moves[i] = new Move(first.Source, second.Target, first.Id);
+            moves.RemoveAt(i + 1);
+
+            return true;
         }
 
         return false;
