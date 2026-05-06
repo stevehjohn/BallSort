@@ -9,8 +9,6 @@ public static class BoardExtensions
     {
         public void Dump()
         {
-            Console.WriteLine(string.Empty);
-        
             var builder = new StringBuilder();
 
             var columns = new List<Colour[]>();
