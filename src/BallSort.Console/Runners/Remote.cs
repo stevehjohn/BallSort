@@ -2,6 +2,10 @@ using System.Diagnostics;
 using System.Net;
 using BallSort.Console.Infrastructure;
 using BallSort.Engine;
+using BallSort.Engine.Game;
+using BallSort.Engine.Infrastructure;
+using BallSort.Engine.Models;
+using static System.Console;
 
 namespace BallSort.Console.Runners;
 
@@ -17,11 +21,8 @@ public class Remote
     {
         var client = new PuzzleClient();
 
-        var solver = new Solver
-        {
-            StepCallback = VisualiseStep
-        };
-
+        var solver = new Solver(new Board(new Puzzle()));
+        
         Clear();
 
         var startTime = DateTime.Now;

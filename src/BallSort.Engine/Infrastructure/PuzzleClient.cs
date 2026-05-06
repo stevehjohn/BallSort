@@ -2,6 +2,7 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using BallSort.Engine.Models;
+using HtmlAgilityPack;
 
 namespace BallSort.Engine.Infrastructure;
 
@@ -79,7 +80,7 @@ public sealed class PuzzleClient : IDisposable
         
         var day = nextPuzzleDate.Value.Day;
         
-        using var response = _client.GetAsync($"traintracks/{difficulty}/{year}/{month}/{day}").Result;
+        using var response = _client.GetAsync($"ballsort/{difficulty}/{year}/{month}/{day}").Result;
             
         var page = response.Content.ReadAsStringAsync().Result;
 
@@ -98,7 +99,7 @@ public sealed class PuzzleClient : IDisposable
 
         for (var year = _latestYear; year <= now.Year; year++)
         {
-            using var response = _client.GetAsync($"/archive/traintracks/{difficulty.ToString().ToLower()}/{year}").Result;
+            using var response = _client.GetAsync($"/archive/ballsort/{difficulty.ToString().ToLower()}/{year}").Result;
             
             var page = response.Content.ReadAsStringAsync().Result;
 
@@ -108,7 +109,7 @@ public sealed class PuzzleClient : IDisposable
             
             var puzzles = dom.DocumentNode.SelectNodes("//td[@class='puzzleNotDone'] | //td[@class='puzzleSaveAvailable']");
 
-            if (puzzles != null && puzzles.Count > 0)
+            if (puzzles.Count > 0)
             {
                 var puzzle = puzzles[0];
                 
@@ -125,58 +126,6 @@ public sealed class PuzzleClient : IDisposable
         }
 
         return null;   
-    }
-
-    public (HttpStatusCode StatusCode, PuzzleSolvedResponse Response) SendResult(DateOnly date, Grid grid, int variant)
-    {
-        Thread.Sleep(TimeSpan.FromMilliseconds(1_000));
-        
-        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-        var score = 0;
-        
-        var builder = new StringBuilder();
-        
-        for (var x = 0; x < grid.Width; x++)
-        {
-            for (var y = 0; y < grid.Height; y++)
-            {
-                var piece = grid[x, y];
-
-                if (piece is not Piece.Empty and not Piece.Cross)
-                {
-                    score += 5;
-                }
-                
-                builder.Append((int) piece);
-            }
-        }
-
-        score -= grid.FixedPieceCount * 5;
-
-        var payload = new PuzzleSolution
-        {
-            Type = 33,
-            Variant = variant,
-            Year = date.Year,
-            Month = date.Month,
-            Day = date.Day,
-            Score = score,
-            Solution = builder.ToString(),
-            UserId = _userId,
-            Status = "PENDING",
-            CreatedAt = timestamp
-        };
-
-        var json = JsonSerializer.Serialize(payload, _jsonSerializerOptions);
-
-        using var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        using var responseObject = _client.PostAsync("user/puzzlecomplete", content).Result;
-
-        var response = JsonSerializer.Deserialize<PuzzleSolvedResponse>(responseObject.Content.ReadAsStringAsync().Result, _jsonSerializerOptions);
-
-        return (responseObject.StatusCode, response);
     }
 
     public void Dispose()
