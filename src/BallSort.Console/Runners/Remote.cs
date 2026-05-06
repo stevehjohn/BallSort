@@ -133,6 +133,11 @@ public class Remote
 
             CursorTop = _top;
 
+            foreach (var move in result.Moves)
+            {
+                WriteLine($"  {move.Source + 1,2} => {move.Target + 1,2}");
+            }
+
             board.Dump();
             
             WriteLine();
