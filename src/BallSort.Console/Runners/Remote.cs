@@ -13,8 +13,6 @@ public class Remote
 {
     private int _top;
 
-    private int _count;
-
     private readonly Stopwatch _stopwatch = new();
 
     public void Run(RemoteOptions options)
@@ -108,8 +106,6 @@ public class Remote
 
             _top = CursorTop;
 
-            _count = 0;
-
             _stopwatch.Restart();
 
             CursorVisible = false;
@@ -139,12 +135,16 @@ public class Remote
             }
             
             WriteLine();
+            
+            WriteLine($"  {result.Moves.Count} steps.");
+            
+            WriteLine();
 
             board.Dump();
             
             WriteLine();
 
-            WriteLine(@$"Solved in {_stopwatch.Elapsed:h\:mm\:ss\.fff}, with {_count:N0} iterations.");
+            WriteLine(@$"Solved in {_stopwatch.Elapsed:h\:mm\:ss\.fff}.");
         }
 
         WriteLine();
