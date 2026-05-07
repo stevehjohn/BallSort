@@ -126,6 +126,7 @@ public class Solver
         for (var i = 0; i < moves.Count - 1; i++)
         {
             var first = moves[i];
+            
             var second = moves[i + 1];
 
             if (first.Target != second.Source)
@@ -139,6 +140,7 @@ public class Solver
             }
 
             moves[i] = new Move(first.Source, second.Target, first.Id);
+            
             moves.RemoveAt(i + 1);
 
             return true;
