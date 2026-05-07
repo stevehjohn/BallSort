@@ -82,7 +82,7 @@ public class Solver
         return false;
     }
 
-    private void PostProcessMoves(List<Move> moves)
+    private static void PostProcessMoves(List<Move> moves)
     {
         while (RemoveBounces(moves) || CollapseForwarding(moves)) { }
     }
