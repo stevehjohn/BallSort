@@ -133,7 +133,6 @@ public class Solver
                 continue;
             }
 
-            // A -> B, B -> A is a bounce, not forwarding.
             if (first.Source == second.Target)
             {
                 continue;
