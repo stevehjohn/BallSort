@@ -64,7 +64,6 @@ public class MoveGenerator
         if (_board.BallCount(source) > 1)
         {
             CheckForEmpty(source);
-            
         }
     }
 
