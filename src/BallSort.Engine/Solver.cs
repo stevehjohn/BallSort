@@ -133,7 +133,7 @@ public class Solver
 
                 if (first.Target == second.Source)
                 {
-                    moves[f] = new Move(first.Source, second.Target, first.Id);
+                    moves[f] = new Move(first.Source, second.Target, first.Colour, first.Id);
                     
                     moves.RemoveAt(s);
 

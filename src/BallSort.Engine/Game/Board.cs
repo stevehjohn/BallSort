@@ -84,7 +84,7 @@ public class Board
 
         _columns[target].Push(_columns[source].Pop());
 
-        _history.Push(new Move(source, target));
+        _history.Push(new Move(source, target, sourceBall));
     }
 
     public void Move(int source, int target)

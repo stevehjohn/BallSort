@@ -79,7 +79,7 @@ public class MoveGenerator
 
             if (_board.Top(x) == ball && _board.Capacity(x) == 1)
             {
-                _newMoves.Add(new Move(source, x, ++_moveId));
+                _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
             }
         }
     }
@@ -95,7 +95,7 @@ public class MoveGenerator
         {
             if (_board.IsEmpty(x))
             {
-                _newMoves.Add(new Move(source, x, ++_moveId));
+                _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
             }
         }
     }
@@ -118,7 +118,7 @@ public class MoveGenerator
 
                 if (_board.TopRunLength(x) == i)
                 {
-                    _newMoves.Add(new Move(source, x, ++_moveId));
+                    _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
 
                     break;
                 }
