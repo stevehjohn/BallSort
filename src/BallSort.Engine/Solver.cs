@@ -15,7 +15,7 @@ public class Solver
     private readonly Stack<Move> _moves = [];
 
     private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
-    
+
     public Solver(Board board)
     {
         _board = board;
@@ -84,11 +84,11 @@ public class Solver
 
     private static void PostProcessMoves(List<Move> moves)
     {
-        while (RemoveBounces(moves) || CollapseForwarding(moves)) { }
-        
-        SortByColour(moves);
+        while (RemoveBounces(moves) || CollapseForwarding(moves))
+        {
+        }
     }
-    
+
     private static bool RemoveBounces(List<Move> moves)
     {
         for (var f = 0; f < moves.Count - 1; f++)
@@ -102,9 +102,9 @@ public class Solver
                 if (current.Source == first.Target && current.Target == first.Source)
                 {
                     moves.RemoveAt(s);
-                    
+
                     moves.RemoveAt(f);
-                    
+
                     return true;
                 }
 
@@ -122,7 +122,7 @@ public class Solver
     {
         return move.Source == tube || move.Target == tube;
     }
-    
+
     private static bool CollapseForwarding(List<Move> moves)
     {
         for (var f = 0; f < moves.Count - 1; f++)
@@ -136,65 +136,19 @@ public class Solver
                 if (first.Target == second.Source)
                 {
                     moves[f] = new Move(first.Source, second.Target, first.Colour, first.Id);
-                    
+
                     moves.RemoveAt(s);
 
                     return true;
                 }
-                
+
                 if (Touches(second, first.Source) || Touches(second, first.Target))
                 {
                     break;
                 }
             }
         }
-        
+
         return false;
-    }
-
-    private static void SortByColour(List<Move> moves)
-    {
-        for (var f = 0; f < moves.Count - 1; f++)
-        {
-            var first = moves[f];
-
-            for (var s = f + 1; s < moves.Count; s++)
-            {
-                var second = moves[s];
-
-                if (second.Colour == first.Colour && second.Target == first.Target)
-                {
-                    moves.RemoveAt(s);
-
-                    var insert = f + 1;
-
-                    while (insert < moves.Count)
-                    {
-                        var current = moves[insert];
-
-                        if (current.Colour != first.Colour || current.Target != first.Target)
-                        {
-                            break;
-                        }
-
-                        if (current.Source > second.Source)
-                        {
-                            break;
-                        }
-
-                        insert++;
-                    }
-
-                    moves.Insert(insert, second);
-
-                    continue;
-                }
-
-                if (Touches(second, first.Source) || Touches(second, first.Target))
-                {
-                    break;
-                }
-            }
-        }
     }
 }
