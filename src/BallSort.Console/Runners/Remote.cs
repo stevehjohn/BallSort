@@ -11,8 +11,6 @@ namespace BallSort.Console.Runners;
 
 public class Remote
 {
-    private int _top;
-
     private readonly Stopwatch _stopwatch = new();
 
     public void Run(RemoteOptions options)
@@ -104,8 +102,6 @@ public class Remote
 
             WriteLine();
 
-            _top = CursorTop;
-
             _stopwatch.Restart();
 
             CursorVisible = false;
@@ -126,8 +122,6 @@ public class Remote
 
                 break;
             }
-
-            CursorTop = _top;
 
             foreach (var move in result.Moves)
             {
