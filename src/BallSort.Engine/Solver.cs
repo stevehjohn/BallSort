@@ -85,6 +85,8 @@ public class Solver
     private static void PostProcessMoves(List<Move> moves)
     {
         while (RemoveBounces(moves) || CollapseForwarding(moves)) { }
+        
+        SortByColour(moves);
     }
     
     private static bool RemoveBounces(List<Move> moves)
@@ -148,5 +150,51 @@ public class Solver
         }
         
         return false;
+    }
+
+    private static void SortByColour(List<Move> moves)
+    {
+        for (var f = 0; f < moves.Count - 1; f++)
+        {
+            var first = moves[f];
+
+            for (var s = f + 1; s < moves.Count; s++)
+            {
+                var second = moves[s];
+
+                if (second.Colour == first.Colour && second.Target == first.Target)
+                {
+                    moves.RemoveAt(s);
+
+                    var insert = f + 1;
+
+                    while (insert < moves.Count)
+                    {
+                        var current = moves[insert];
+
+                        if (current.Colour != first.Colour || current.Target != first.Target)
+                        {
+                            break;
+                        }
+
+                        if (current.Source > second.Source)
+                        {
+                            break;
+                        }
+
+                        insert++;
+                    }
+
+                    moves.Insert(insert, second);
+
+                    continue;
+                }
+
+                if (Touches(second, first.Source) || Touches(second, first.Target))
+                {
+                    break;
+                }
+            }
+        }
     }
 }
