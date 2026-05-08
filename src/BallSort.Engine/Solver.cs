@@ -89,19 +89,21 @@ public class Solver
     
     private static bool RemoveBounces(List<Move> moves)
     {
-        for (var i = 0; i < moves.Count - 1; i++)
+        for (var f = 0; f < moves.Count - 1; f++)
         {
-            var first = moves[i];
+            var first = moves[f];
 
-            for (var j = i + 1; j < moves.Count; j++)
+            for (var s = f + 1; s < moves.Count; s++)
             {
-                var current = moves[j];
+                var current = moves[s];
 
                 if (current.Source == first.Target && current.Target == first.Source)
                 {
-                    moves.RemoveAt(j);
+                    moves.RemoveAt(s);
                     
-                    moves.RemoveAt(i);
+                    moves.RemoveAt(f);
+                    
+                    Console.WriteLine("!!");
 
                     return true;
                 }
@@ -123,29 +125,32 @@ public class Solver
     
     private static bool CollapseForwarding(List<Move> moves)
     {
-        for (var i = 0; i < moves.Count - 1; i++)
+        for (var f = 0; f < moves.Count - 1; f++)
         {
-            var first = moves[i];
-            
-            var second = moves[i + 1];
+            var first = moves[f];
 
-            if (first.Target != second.Source)
+            for (var s = f + 1; s < moves.Count; s++)
             {
-                continue;
+                var second = moves[s];
+
+                if (first.Target == second.Source)
+                {
+                    moves[f] = new Move(first.Source, second.Target, first.Id);
+                    
+                    moves.RemoveAt(s);
+
+                    Console.WriteLine("!");
+                    
+                    return true;
+                }
+                
+                if (Touches(second, first.Source) || Touches(second, first.Target))
+                {
+                    break;
+                }
             }
-
-            if (first.Source == second.Target)
-            {
-                continue;
-            }
-
-            moves[i] = new Move(first.Source, second.Target, first.Id);
-            
-            moves.RemoveAt(i + 1);
-
-            return true;
         }
-
+        
         return false;
     }
 }
