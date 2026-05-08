@@ -103,8 +103,6 @@ public class Solver
                     
                     moves.RemoveAt(f);
                     
-                    Console.WriteLine("!!");
-
                     return true;
                 }
 
@@ -139,8 +137,6 @@ public class Solver
                     
                     moves.RemoveAt(s);
 
-                    Console.WriteLine("!");
-                    
                     return true;
                 }
                 
