@@ -41,12 +41,10 @@ public class MoveGenerator
 
             foreach (var move in newMoves)
             {
-                if (move.Source == lastMove.Target)
+                if (! (move.Source == lastMove.Target && move.Target == lastMove.Source))
                 {
-                    continue;
+                    moves.Add(move);
                 }
-
-                moves.Add(move);
             }
         }
 
