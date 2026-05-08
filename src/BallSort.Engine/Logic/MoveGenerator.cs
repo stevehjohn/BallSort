@@ -73,7 +73,7 @@ public class MoveGenerator
                 moves.Add(move);
             }
         }
-        
+
         return moves;
     }
 
@@ -134,7 +134,7 @@ public class MoveGenerator
                 if (_board.TopRunLength(x) == i)
                 {
                     moves.Add(new Move(source, x, ++_moveId));
-                    
+
                     break;
                 }
             }
@@ -151,4 +151,5 @@ public class MoveGenerator
         }
 
         return true;
-    }}
+    }
+}
