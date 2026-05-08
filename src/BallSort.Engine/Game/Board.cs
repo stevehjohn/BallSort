@@ -220,6 +220,23 @@ public class Board
         return Capacity(column) == 0;
     }
 
+    public bool IsPure(int column)
+    {
+        Guard(column);
+
+        var colour = _columns[column].Peek();
+
+        foreach (var item in _columns[column])
+        {
+            if (item != colour)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public int Capacity(int column)
     {
         Guard(column);

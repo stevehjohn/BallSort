@@ -118,6 +118,11 @@ public class MoveGenerator
 
                 if (_board.TopRunLength(x) == i)
                 {
+                    if (_board.IsPure(source) && _board.IsPure(x) && _board.BallCount(source) > _board.BallCount(x))
+                    {
+                        continue;
+                    }
+
                     _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
 
                     break;
