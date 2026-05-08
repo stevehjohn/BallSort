@@ -142,7 +142,7 @@ public class Solver
                     return true;
                 }
                 
-                if (Touches(second, first.Source) || Touches(second, first.Target))
+                if (Touches(second, first.Source) || Touches(second, first.Target) || Touches(second, first.Source))
                 {
                     break;
                 }
