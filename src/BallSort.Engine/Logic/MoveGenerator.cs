@@ -34,7 +34,7 @@ public class MoveGenerator
                 continue;
             }
 
-            if (_board.TopRunLength(x) == _board.Height - 1 && _board.BallCount(x) == _board.Height - 1)
+            if (_board.IsPure(x) && _board.BallCount(x) == _board.Height - 1)
             {
                 continue;
             }
