@@ -4,7 +4,6 @@ using BallSort.Engine.Game;
 using BallSort.Engine.Infrastructure;
 using BallSort.Engine.Models;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace BallSort.Engine.Tests;
 
