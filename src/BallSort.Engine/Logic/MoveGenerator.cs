@@ -9,7 +9,7 @@ public class MoveGenerator
 
     private int _moveId;
 
-    private List<Move> _newMoves = [];
+    private readonly List<Move> _newMoves = [];
     
     public MoveGenerator(Board board)
     {
@@ -78,7 +78,7 @@ public class MoveGenerator
 
             if (_board.Top(x) == ball && _board.Capacity(x) == 1)
             {
-                _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
+                _newMoves.Add(new Move(source, x, ++_moveId));
             }
         }
     }
@@ -94,7 +94,7 @@ public class MoveGenerator
         {
             if (_board.IsEmpty(x))
             {
-                _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
+                _newMoves.Add(new Move(source, x, ++_moveId));
             }
         }
     }
@@ -122,7 +122,7 @@ public class MoveGenerator
                         continue;
                     }
 
-                    _newMoves.Add(new Move(source, x, _board.Top(source), ++_moveId));
+                    _newMoves.Add(new Move(source, x, ++_moveId));
 
                     break;
                 }

@@ -35,14 +35,7 @@ public class Remote
             {
                 try
                 {
-                    if (options.Year > 0)
-                    {
-                        puzzle = client.GetPuzzle(options.Difficulty, new DateOnly(options.Year, options.Month, options.Day));
-                    }
-                    else
-                    {
-                        puzzle = client.GetNextPuzzle(options.Difficulty);
-                    }
+                    puzzle = options.Year > 0 ? client.GetPuzzle(options.Difficulty, new DateOnly(options.Year, options.Month, options.Day)) : client.GetNextPuzzle(options.Difficulty);
                 }
                 catch
                 {
