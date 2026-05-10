@@ -37,8 +37,6 @@ public class Solver
         {
             var moveList = _moves.Reverse().ToList();
 
-            PostProcessMoves(moveList);
-
             return (true, moveList);
         }
 
@@ -77,76 +75,6 @@ public class Solver
             }
 
             _board.UndoLastMove();
-        }
-
-        return false;
-    }
-
-    private static void PostProcessMoves(List<Move> moves)
-    {
-        while (RemoveBounces(moves) || CollapseForwarding(moves))
-        {
-        }
-    }
-
-    private static bool RemoveBounces(List<Move> moves)
-    {
-        for (var f = 0; f < moves.Count - 1; f++)
-        {
-            var first = moves[f];
-
-            for (var s = f + 1; s < moves.Count; s++)
-            {
-                var current = moves[s];
-
-                if (current.Source == first.Target && current.Target == first.Source)
-                {
-                    moves.RemoveAt(s);
-
-                    moves.RemoveAt(f);
-
-                    return true;
-                }
-
-                if (Touches(current, first.Source) || Touches(current, first.Target))
-                {
-                    break;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static bool Touches(Move move, int tube)
-    {
-        return move.Source == tube || move.Target == tube;
-    }
-
-    private static bool CollapseForwarding(List<Move> moves)
-    {
-        for (var f = 0; f < moves.Count - 1; f++)
-        {
-            var first = moves[f];
-
-            for (var s = f + 1; s < moves.Count; s++)
-            {
-                var second = moves[s];
-
-                if (first.Target == second.Source)
-                {
-                    moves[f] = new Move(first.Source, second.Target, first.Colour, first.Id);
-
-                    moves.RemoveAt(s);
-
-                    return true;
-                }
-
-                if (Touches(second, first.Source) || Touches(second, first.Target))
-                {
-                    break;
-                }
-            }
         }
 
         return false;
