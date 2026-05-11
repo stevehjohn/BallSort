@@ -16,6 +16,8 @@ public class Solver
 
     private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
 
+    private  int[] _lastTouched;
+
     public Solver(Board board)
     {
         _board = board;
@@ -84,11 +86,20 @@ public class Solver
 
     private void PostProcessMoves(List<Move> moves)
     {
+        _lastTouched = new int[_board.Width];
+        
         while (RemoveBounces(moves)) { }
     }
 
     private bool RemoveBounces(List<Move> moves)
     {
-        
+        Array.Clear(_lastTouched);
+
+        for (var i = 0; i < moves.Count; i++)
+        {
+            var move = moves[i];
+        }
+
+        return false;
     }
 }
