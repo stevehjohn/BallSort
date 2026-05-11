@@ -103,27 +103,27 @@ public class Solver
 
             _lastTouched[first.Target] = f;
 
-            Move? second = null;
+            var secondIndex = -1;
 
-            Move? third = null;
+            var thirdIndex = -1;
             
             for (var s = f + 1; s < moves.Count; s++)
             {
-                if (second == null && moves[s].Source == first.Target && moves[s].Target == first.Source)
+                if (secondIndex == -1 && moves[s].Source == first.Target && moves[s].Target == first.Source)
                 {
                     if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
                     {
-                        second = moves[s];
+                        secondIndex = s;
                         
                         continue;
                     }
                 }
                 
-                if (second != null && moves[s].Source == first.Source && moves[s].Target == first.Target)
+                if (secondIndex > -1 && moves[s].Source == first.Source && moves[s].Target == first.Target)
                 {
                     if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
                     {
-                        third = moves[s];
+                        thirdIndex = s;
                         
                         break;
                     }
@@ -134,11 +134,11 @@ public class Solver
                 _lastTouched[moves[s].Target] = s;
             }
 
-            if (second != null && third != null)
+            if (secondIndex > -1 && thirdIndex > -1)
             {
-                moves.Remove(second.Value);
+                moves.RemoveAt(thirdIndex);
                 
-                moves.Remove(third.Value);
+                moves.RemoveAt(secondIndex);
 
                 return true;
             }
