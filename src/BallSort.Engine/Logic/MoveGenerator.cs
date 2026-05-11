@@ -59,7 +59,17 @@ public class MoveGenerator
         
         CheckForCompletion(ball, source);
 
+        if (_newMoves.Count > 0)
+        {
+            return;
+        }
+
         CheckForMerges(ball, source);
+
+        if (_newMoves.Count > 0)
+        {
+            return;
+        }
 
         if (_board.BallCount(source) > 1)
         {
@@ -95,6 +105,8 @@ public class MoveGenerator
             if (_board.IsEmpty(x))
             {
                 _newMoves.Add(new Move(source, x, ++_moveId));
+                
+                return;
             }
         }
     }
