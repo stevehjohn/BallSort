@@ -161,6 +161,8 @@ public class Solver
                 moves.Remove(second.Value);
                 
                 moves.Remove(third.Value);
+
+                return true;
             }
         }
 
