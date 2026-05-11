@@ -37,6 +37,8 @@ public class Solver
         {
             var moveList = _moves.Reverse().ToList();
 
+            PostProcessMoves(moveList);
+
             return (true, moveList);
         }
 
@@ -78,5 +80,15 @@ public class Solver
         }
 
         return false;
+    }
+
+    private void PostProcessMoves(List<Move> moves)
+    {
+        while (RemoveBounces(moves)) { }
+    }
+
+    private bool RemoveBounces(List<Move> moves)
+    {
+        
     }
 }
