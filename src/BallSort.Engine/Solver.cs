@@ -115,11 +115,53 @@ public class Solver
 
     private bool RemoveBounces(List<Move> moves)
     {
-        Array.Clear(_lastTouched);
+        Array.Fill(_lastTouched, -1);
 
-        for (var i = 0; i < moves.Count; i++)
+        for (var f = 0; f < moves.Count - 2; f++)
         {
-            var move = moves[i];
+            var first = moves[f];
+
+            _lastTouched[first.Source] = f;
+
+            _lastTouched[first.Target] = f;
+
+            Move? second = null;
+
+            Move? third = null;
+            
+            for (var s = f + 1; s < moves.Count; s++)
+            {
+                if (second == null && moves[s].Source == first.Target && moves[s].Target == first.Source)
+                {
+                    if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
+                    {
+                        second = moves[s];
+                        
+                        continue;
+                    }
+                }
+                
+                if (second != null && moves[s].Source == first.Source && moves[s].Target == first.Target)
+                {
+                    if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
+                    {
+                        third = moves[s];
+                        
+                        break;
+                    }
+                }
+
+                _lastTouched[moves[s].Source] = s;
+
+                _lastTouched[moves[s].Target] = s;
+            }
+
+            if (second != null && third != null)
+            {
+                moves.Remove(second.Value);
+                
+                moves.Remove(third.Value);
+            }
         }
 
         return false;
