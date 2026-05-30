@@ -10,7 +10,11 @@ public static class EntryPoint
 {
     public static void Main(string[] arguments)
     {
-        var parser = new Parser(settings => { settings.CaseInsensitiveEnumValues = true; });
+        var parser = new Parser(settings =>
+        {
+            settings.CaseInsensitiveEnumValues = true;
+            settings.HelpWriter = System.Console.Out;
+        });
 
         parser.ParseArguments<LocalOptions, RemoteOptions>(arguments)
             .WithParsed<LocalOptions>(Local.Run)
