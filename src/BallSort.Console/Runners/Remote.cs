@@ -15,15 +15,6 @@ public class Remote
 
     public void Run(RemoteOptions options)
     {
-        var validationResult = options.Validate();
-
-        if (! validationResult.IsValid)
-        {
-            WriteLine($"\n{validationResult.Message}\n");
-            
-            return;
-        }
-        
         var client = new PuzzleClient();
         
         Clear();
@@ -45,9 +36,7 @@ public class Remote
                 try
                 {
                     puzzle = options.Year > 0 
-                        // ReSharper disable PossibleInvalidOperationException
-                        ? client.GetPuzzle(options.Difficulty, new DateOnly(options.Year.Value, options.Month.Value, options.Day.Value)) 
-                        // ReSharper restore PossibleInvalidOperationException
+                        ? client.GetPuzzle(options.Difficulty, new DateOnly(options.Year, options.Month, options.Day)) 
                         : client.GetNextPuzzle(options.Difficulty);
                 }
                 catch
