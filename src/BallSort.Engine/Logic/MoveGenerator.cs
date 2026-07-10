@@ -7,10 +7,12 @@ public class MoveGenerator
 {
     private readonly Board _board;
 
+    private readonly List<Move> _newMoves = [];
+
+    private Move _lastMove;
+
     private int _moveId;
 
-    private readonly List<Move> _newMoves = [];
-    
     public MoveGenerator(Board board)
     {
         _board = board;
@@ -18,6 +20,8 @@ public class MoveGenerator
 
     public List<Move> GetMoves(Move lastMove)
     {
+        _lastMove = lastMove;
+        
         var moves = new List<Move>();
 
         for (var x = 0; x < _board.Width; x++)
@@ -43,7 +47,7 @@ public class MoveGenerator
 
             foreach (var move in _newMoves)
             {
-                if (! (move.Source == lastMove.Target && move.Target == lastMove.Source))
+                if (! (move.Source == _lastMove.Target && move.Target == _lastMove.Source))
                 {
                     moves.Add(move);
                 }
@@ -56,13 +60,15 @@ public class MoveGenerator
     private void GetMoves(Colour ball, int source)
     {
         _newMoves.Clear();
-        
+
         CheckForCompletion(ball, source);
 
         if (_newMoves.Count > 0)
         {
             return;
         }
+
+        CheckForMatch(ball, source);
 
         CheckForMerges(ball, source);
 
@@ -93,6 +99,22 @@ public class MoveGenerator
         }
     }
 
+    private void CheckForMatch(Colour ball, int source)
+    {
+        if (_board.IsFull(source))
+        {
+            return;
+        }
+
+        for (var x = 0; x < _board.Width; x++)
+        {
+            if (_board.Top(x) == ball)
+            {
+                _lastMove = new Move(source, x, ++_moveId);
+            }
+        }
+    }
+
     private void CheckForEmpty(int source)
     {
         if (_board.TopRunLength(source) == _board.BallCount(source))
@@ -105,7 +127,7 @@ public class MoveGenerator
             if (_board.IsEmpty(x))
             {
                 _newMoves.Add(new Move(source, x, ++_moveId));
-                
+
                 return;
             }
         }
