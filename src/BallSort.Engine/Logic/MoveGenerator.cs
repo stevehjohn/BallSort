@@ -70,6 +70,11 @@ public class MoveGenerator
 
         CheckForMatchingMove(source);
 
+        if (_newMoves.Count > 0)
+        {
+            return;
+        }
+
         CheckForMerges(ball, source);
 
         if (_newMoves.Count > 0)
@@ -101,13 +106,18 @@ public class MoveGenerator
 
     private void CheckForMatchingMove(int source)
     {
-        if (_lastMove == Move.NullMove || _board.IsFull(_lastMove.Target))
+        if (_lastMove == Move.NullMove || source == _lastMove.Target)
+        {
+            return;
+        }
+
+        if (!IsMergeCandidate(_lastMove.Target, source))
         {
             return;
         }
 
         var lastColour = _board.Top(_lastMove.Target);
-        
+
         if (_board.Top(source) == lastColour)
         {
             _newMoves.Add(new Move(source, _lastMove.Target, ++_moveId));
