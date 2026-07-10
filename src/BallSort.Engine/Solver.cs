@@ -16,7 +16,7 @@ public class Solver
 
     private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
 
-    private  int[] _lastTouched;
+    private List<Move> _bestMoves;
 
     public Solver(Board board)
     {
@@ -33,22 +33,24 @@ public class Solver
 
         _visited.Clear();
 
+        _bestMoves = null;
+
         _visited.Add(_boardHasher.GetHash());
 
-        if (Explore())
-        {
-            var moveList = _moves.Reverse().ToList();
+        Explore();
 
-            PostProcessMoves(moveList);
-
-            return (true, moveList);
-        }
-
-        return (false, null);
+        return _bestMoves == null
+            ? (false, null)
+            : (true, _bestMoves);
     }
 
-    private bool Explore()
+    private void Explore()
     {
+        if (_bestMoves != null && _moves.Count >= _bestMoves.Count)
+        {
+            return;
+        }
+
         var lastMove = _moves.Count > 0 ? _moves.Peek() : Move.NullMove;
 
         var moves = _moveGenerator.GetMoves(lastMove);
@@ -57,93 +59,37 @@ public class Solver
         {
             _board.Move(move);
 
+            _moves.Push(move);
+
             if (_board.IsSolved())
             {
-                _moves.Push(move);
-
-                return true;
+                SaveBestSolution();
             }
-
-            var hash = _boardHasher.GetHash();
-
-            if (_visited.Add(hash))
+            else
             {
-                _moves.Push(move);
+                var hash = _boardHasher.GetHash();
 
-                if (Explore())
+                if (_visited.Add(hash))
                 {
-                    return true;
-                }
+                    Explore();
 
-                _moves.Pop();
+                    _visited.Remove(hash);
+                }
             }
+
+            _moves.Pop();
 
             _board.UndoLastMove();
         }
-
-        return false;
     }
 
-    private void PostProcessMoves(List<Move> moves)
+    private void SaveBestSolution()
     {
-        _lastTouched = new int[_board.Width];
-        
-        while (RemoveBounces(moves)) { }
-    }
-
-    private bool RemoveBounces(List<Move> moves)
-    {
-        Array.Fill(_lastTouched, -1);
-
-        for (var f = 0; f < moves.Count - 2; f++)
+        if (_bestMoves != null && _moves.Count >= _bestMoves.Count)
         {
-            var first = moves[f];
-
-            _lastTouched[first.Source] = f;
-
-            _lastTouched[first.Target] = f;
-
-            var secondIndex = -1;
-
-            var thirdIndex = -1;
-            
-            for (var s = f + 1; s < moves.Count; s++)
-            {
-                if (secondIndex == -1 && moves[s].Source == first.Target && moves[s].Target == first.Source)
-                {
-                    if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
-                    {
-                        secondIndex = s;
-                        
-                        continue;
-                    }
-                }
-                
-                if (secondIndex > -1 && moves[s].Source == first.Source && moves[s].Target == first.Target)
-                {
-                    if (_lastTouched[moves[s].Source] == f && _lastTouched[moves[s].Target] == f)
-                    {
-                        thirdIndex = s;
-                        
-                        break;
-                    }
-                }
-
-                _lastTouched[moves[s].Source] = s;
-
-                _lastTouched[moves[s].Target] = s;
-            }
-
-            if (secondIndex > -1 && thirdIndex > -1)
-            {
-                moves.RemoveAt(thirdIndex);
-                
-                moves.RemoveAt(secondIndex);
-
-                return true;
-            }
+            return;
         }
 
-        return false;
+        _bestMoves = _moves.Reverse().ToList();
     }
 }
