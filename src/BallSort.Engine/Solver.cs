@@ -37,7 +37,7 @@ public class Solver
 
         if (Explore())
         {
-            var moveList = RemoveRedundantMoves(_moves.Reverse());
+            var moveList = _moves.Reverse().ToList();
 
             PostProcessMoves(moveList);
 
@@ -45,28 +45,6 @@ public class Solver
         }
 
         return (false, null);
-    }
-
-    private static List<Move> RemoveRedundantMoves(IEnumerable<Move> moves)
-    {
-        var reducedMoves = new List<Move>();
-
-        foreach (var move in moves)
-        {
-            if (reducedMoves.Count > 0)
-            {
-                var previousMove = reducedMoves[^1];
-
-                if (previousMove.Source == move.Source && previousMove.Target == move.Target)
-                {
-                    continue;
-                }
-            }
-
-            reducedMoves.Add(move);
-        }
-
-        return reducedMoves;
     }
 
     private bool Explore()
