@@ -21,7 +21,7 @@ public class MoveGenerator
     public List<Move> GetMoves(Move lastMove)
     {
         _lastMove = lastMove;
-        
+
         var moves = new List<Move>();
 
         for (var x = 0; x < _board.Width; x++)
@@ -111,7 +111,7 @@ public class MoveGenerator
             return;
         }
 
-        if (!IsMergeCandidate(_lastMove.Target, source))
+        if (! IsMergeCandidate(_lastMove.Target, source))
         {
             return;
         }
