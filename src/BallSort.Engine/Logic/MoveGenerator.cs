@@ -67,14 +67,7 @@ public class MoveGenerator
         {
             return;
         }
-
-        CheckForMatchingMove(source);
-
-        if (_newMoves.Count > 0)
-        {
-            return;
-        }
-
+        
         CheckForMerges(ball, source);
 
         if (_newMoves.Count > 0)
@@ -101,26 +94,6 @@ public class MoveGenerator
             {
                 _newMoves.Add(new Move(source, x, ++_moveId));
             }
-        }
-    }
-
-    private void CheckForMatchingMove(int source)
-    {
-        if (_lastMove == Move.NullMove || source == _lastMove.Target)
-        {
-            return;
-        }
-
-        if (! IsMergeCandidate(_lastMove.Target, source))
-        {
-            return;
-        }
-
-        var lastColour = _board.Top(_lastMove.Target);
-
-        if (_board.Top(source) == lastColour)
-        {
-            _newMoves.Add(new Move(source, _lastMove.Target, ++_moveId));
         }
     }
 
