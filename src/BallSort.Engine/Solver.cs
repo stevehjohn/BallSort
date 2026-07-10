@@ -1,4 +1,4 @@
-﻿using BallSort.Engine.Game;
+using BallSort.Engine.Game;
 using BallSort.Engine.Logic;
 using BallSort.Engine.Models;
 
@@ -35,12 +35,34 @@ public class Solver
 
         if (Explore())
         {
-            var moveList = _moves.Reverse().ToList();
+            var moveList = RemoveRedundantMoves(_moves.Reverse());
 
             return (true, moveList);
         }
 
         return (false, null);
+    }
+
+    private static List<Move> RemoveRedundantMoves(IEnumerable<Move> moves)
+    {
+        var reducedMoves = new List<Move>();
+
+        foreach (var move in moves)
+        {
+            if (reducedMoves.Count > 0)
+            {
+                var previousMove = reducedMoves[^1];
+
+                if (previousMove.Source == move.Source && previousMove.Target == move.Target)
+                {
+                    continue;
+                }
+            }
+
+            reducedMoves.Add(move);
+        }
+
+        return reducedMoves;
     }
 
     private bool Explore()
