@@ -68,7 +68,7 @@ public class MoveGenerator
             return;
         }
 
-        CheckForMatch(ball, source);
+        CheckForMatchingMove(ball, source);
 
         CheckForMerges(ball, source);
 
@@ -99,7 +99,7 @@ public class MoveGenerator
         }
     }
 
-    private void CheckForMatch(Colour ball, int source)
+    private void CheckForMatchingMove(Colour ball, int source)
     {
         if (_board.IsFull(source))
         {
