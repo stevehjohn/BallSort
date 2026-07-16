@@ -88,10 +88,44 @@ public class Solver
     {
         _lastTouched = new int[_board.Width];
         
-        while (RemoveBounces(moves)) { }
+        while (RemoveBounces(moves) || RemoveTripleBounces(moves)) { }
+    }
+    
+    private bool RemoveBounces(List<Move> moves)
+    {
+        Array.Fill(_lastTouched, -1);
+
+        for (var firstIndex = 0; firstIndex < moves.Count - 1; firstIndex++)
+        {
+            var first = moves[firstIndex];
+
+            _lastTouched[first.Source] = firstIndex;
+            
+            _lastTouched[first.Target] = firstIndex;
+
+            for (var secondIndex = firstIndex + 1; secondIndex < moves.Count; secondIndex++)
+            {
+                var second = moves[secondIndex];
+
+                if (second.Source == first.Target && second.Target == first.Source && _lastTouched[second.Source] == firstIndex && _lastTouched[second.Target] == firstIndex)
+                {
+                    moves.RemoveAt(secondIndex);
+                    
+                    moves.RemoveAt(firstIndex);
+
+                    return true;
+                }
+
+                _lastTouched[second.Source] = secondIndex;
+                
+                _lastTouched[second.Target] = secondIndex;
+            }
+        }
+
+        return false;
     }
 
-    private bool RemoveBounces(List<Move> moves)
+    private bool RemoveTripleBounces(List<Move> moves)
     {
         Array.Fill(_lastTouched, -1);
 
