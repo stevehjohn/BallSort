@@ -106,7 +106,7 @@ public class MoveGenerator
 
         for (var x = 0; x < _board.Width; x++)
         {
-            if (x == _lastMove.Target)
+            if (x == _lastMove.Target || _board.Capacity(x) == 0)
             {
                 continue;
             }
@@ -126,7 +126,7 @@ public class MoveGenerator
         {
             for (var x = 0; x < _board.Width; x++)
             {
-                if (_board.Top(x) != ball)
+                if (_board.Top(x) != ball || _board.Capacity(x) == 0)
                 {
                     continue;
                 }
