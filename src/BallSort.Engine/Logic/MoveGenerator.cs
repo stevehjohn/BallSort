@@ -90,7 +90,7 @@ public class MoveGenerator
                 continue;
             }
 
-            if (_board.Top(x) == ball && _board.Capacity(x) == 1)
+            if (_board.Top(x) == ball && _board.Capacity(x) == 1 && _board.IsPure(x))
             {
                 _newMoves.Add(new Move(source, x, ++_moveId));
                 
@@ -155,7 +155,7 @@ public class MoveGenerator
 
     private bool IsMergeCandidate(int x, int source)
     {
-        if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.Capacity(x) == 1 || _board.IsComplete(x))
+        if (x == source || _board.IsEmpty(x) || _board.IsFull(x) || _board.IsComplete(x))
         {
             return false;
         }
