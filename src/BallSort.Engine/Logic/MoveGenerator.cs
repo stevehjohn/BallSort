@@ -93,6 +93,8 @@ public class MoveGenerator
             if (_board.Top(x) == ball && _board.Capacity(x) == 1)
             {
                 _newMoves.Add(new Move(source, x, ++_moveId));
+                
+                return;
             }
         }
     }
@@ -145,7 +147,7 @@ public class MoveGenerator
 
                     _newMoves.Add(new Move(source, x, ++_moveId));
 
-                    break;
+                    return;
                 }
             }
         }
