@@ -16,6 +16,8 @@ public class Solver
 
     private readonly HashSet<ulong[]> _visited = new(new BoardHashEqualityComparer());
 
+    private int[] _lastTouched;
+
     public Solver(Board board)
     {
         _board = board;
@@ -36,6 +38,8 @@ public class Solver
         if (Explore())
         {
             var moveList = _moves.Reverse().ToList();
+
+            PostProcessMoves(moveList);
 
             return (true, moveList);
         }
@@ -75,6 +79,45 @@ public class Solver
             }
 
             _board.UndoLastMove();
+        }
+
+        return false;
+    }
+
+    private void PostProcessMoves(List<Move> moves)
+    {
+        _lastTouched = new int[_board.Width];
+
+        while (RemoveBounces(moves)) { }
+    }
+
+    private bool RemoveBounces(List<Move> moves)
+    {
+        Array.Fill(_lastTouched, -1);
+
+        for (var index = 0; index < moves.Count; index++)
+        {
+            var move = moves[index];
+
+            var previousIndex = _lastTouched[move.Source];
+
+            if (previousIndex >= 0 && previousIndex == _lastTouched[move.Target])
+            {
+                var previous = moves[previousIndex];
+
+                if (previous.Source == move.Target && previous.Target == move.Source)
+                {
+                    moves.RemoveAt(index);
+                    
+                    moves.RemoveAt(previousIndex);
+
+                    return true;
+                }
+            }
+
+            _lastTouched[move.Source] = index;
+            
+            _lastTouched[move.Target] = index;
         }
 
         return false;
